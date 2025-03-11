@@ -1,0 +1,14 @@
+npx create-nx-workspace@latest
+npm i -g pnpm
+npx only-allow pnpm
+
+
+
+
+
+pmpm install -g nx  
+pnpm add -D nx
+pmpm i @nrwl/nx-plugin    
+
+pnpm install --save-dev @nx/nest
+pnpm install --save-dev @nx/node

@@ -4,9 +4,13 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@nrwl/nx-plugin": "^19.8.4"
+  },
   "devDependencies": {
     "@nx/js": "20.5.0",
+    "@nx/nest": "^20.5.0",
+    "@nx/node": "^20.5.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
@@ -14,8 +18,5 @@
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
     "typescript": "~5.7.2"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }
