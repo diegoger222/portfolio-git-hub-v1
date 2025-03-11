@@ -1,0 +1,6 @@
+{
+    "eslint.validate": [
+      "json"
+    ],
+    "editor.formatOnSave": true
+  }
