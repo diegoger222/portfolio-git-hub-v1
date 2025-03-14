@@ -13,6 +13,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "paths": {
+      "@portfolio-git-hub-v1/generator": [
+        "libs/shared/backend/generators/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
