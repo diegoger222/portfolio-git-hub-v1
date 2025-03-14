@@ -34,6 +34,7 @@
     "@nx/js": "20.5.0",
     "@nx/nest": "^20.5.0",
     "@nx/node": "^20.5.0",
+    "@nx/plugin": "20.5.0",
     "@nx/web": "20.5.0",
     "@nx/webpack": "20.5.0",
     "@nxrocks/nx-spring-boot": "^10.2.6",

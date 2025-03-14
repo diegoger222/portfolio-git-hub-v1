@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-// @RestController("category") // Not sure if use this annotation or the one
-// above
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
