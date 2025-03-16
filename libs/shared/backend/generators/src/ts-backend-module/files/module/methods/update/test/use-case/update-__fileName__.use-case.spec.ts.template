@@ -1,0 +1,36 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>Repository, <%= className %>RepositoryToken } from '../../domain/repositories/<%= fileName%>.repository';
+import { mockCreate<%= className %>Dto, mock<%= className %>, mock<%= className %>Id } from '../__mocks__/<%= fileName%>.mocks';
+import { Update<%= className %>UseCase } from '../../application/use-case/update-<%= fileName%>.use-case';
+
+describe('Update<%= className %>UseCase', () => {
+    let update<%= className %>UseCase: Update<%= className %>UseCase;
+    let repository: <%= className %>Repository;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                Update<%= className %>UseCase,
+                {
+                    provide: <%= className %>RepositoryToken,
+                    useValue: {
+                        update: jest.fn(),
+                    },
+                },
+            ],
+        }).compile();
+
+        update<%= className %>UseCase = module.get<Update<%= className %>UseCase>(Update<%= className %>UseCase);
+        repository = module.get<<%= className %>Repository>(<%= className %>RepositoryToken);
+    });
+
+
+    describe('update', () => {
+        it('should update an existing <%= name %>', async () => {
+            const id = mock<%= className %>Id;
+            jest.spyOn(repository, 'update').mockResolvedValue(mock<%= className %>);
+            expect(await update<%= className %>UseCase.update(id, mockCreate<%= className %>Dto)).toStrictEqual(mock<%= className %>);
+            expect(repository.update).toHaveBeenCalledWith(id, mockCreate<%= className %>Dto);
+        });
+    });
+});

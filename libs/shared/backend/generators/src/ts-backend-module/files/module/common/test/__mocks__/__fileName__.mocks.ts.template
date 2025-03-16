@@ -1,0 +1,22 @@
+import { <%= className %> } from '../../domain/entities/<%= fileName %>.entity';
+import { Create<%= className %>Dto } from '../../application/dtos/create-<%= fileName %>.dto';
+import { Update<%= className %>Dto } from '../../application/dtos/update-<%= fileName %>.dto';
+
+
+export const mock<%= className %>Id = '672dc17f-2ee6-4543-9ce9-28fbe3412745';
+
+export const mock<%= className %>: <%= className %> = {
+    id: mock<%= className %>Id,
+    name: 'tesname',
+};
+
+export const mockCreate<%= className %>Dto: Create<%= className %>Dto = {
+    name: 'testname',
+
+};
+
+export const mockUpdate<%= className %>Dto: Update<%= className %>Dto = {
+    name: 'testname',
+};
+
+export const mock<%= classNameP %>List: <%= className %>[] = [mock<%= className %>];

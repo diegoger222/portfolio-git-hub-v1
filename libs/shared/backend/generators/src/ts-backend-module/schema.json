@@ -4,15 +4,21 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "fileName": {
       "type": "string",
       "description": "",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "What singular file Name would you like to use? example: user-request"
+    },
+    "methods": {
+      "description": "What methods to generate",
+      "type": "array",
+      "x-prompt": {
+        "message": "Which methods should be generated?",
+        "type": "list",
+        "multiselect": true,
+        "items": ["CREATE", "UPDATE", "DELETE", "FINDBYID", "FINDALL"]
+      }
     }
   },
-  "required": ["name"]
+  "required": ["fileName", "methods"]
 }

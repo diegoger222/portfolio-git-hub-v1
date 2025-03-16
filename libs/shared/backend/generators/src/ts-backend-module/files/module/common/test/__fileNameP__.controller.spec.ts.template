@@ -1,0 +1,180 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= classNameP %>Controller } from '../adapters/http/<%= fileNameP %>.controller';
+import { 
+    <% if(methods.includes('CREATE')) { -%>
+    mockCreate<%= className %>Dto,
+    <% } -%>
+    <% if(methods.includes('UPDATE')) { -%>
+    mockUpdate<%= className %>Dto, 
+    <% } -%>
+    <% if(methods.includes('UPDATE')) { -%>
+    mock<%= className %>, 
+    <% } -%>
+    <% if(methods.includes('UPDATE') || methods.includes('DELETE') || methods.includes('FINDBYID')) { -%>
+    mock<%= className %>Id
+    <% } -%>
+} from './__mocks__/<%= fileName %>.mocks';
+import { <%= projectAcronym %>PrismaClient } from '../../core/services/prisma.service';
+import { mockDeep } from 'jest-mock-extended';
+import { Logger } from '@nestjs/common';
+<% if(methods.includes('CREATE')) { -%>
+import { Create<%= className %>UseCase } from '../application/use-case/create-<%= fileName %>.use-case';
+<% } -%>
+<% if(methods.includes('UPDATE')) { -%>
+import { Update<%= className %>UseCase } from '../application/use-case/update-<%= fileName %>.use-case';
+<% } -%>
+<% if(methods.includes('FINDALL')) { -%>
+import { FindAll<%= classNameP %>UseCase } from '../application/use-case/gets/find-all-<%= fileNameP %>.use-case';
+<% } -%>
+<% if(methods.includes('DELETE')) { -%>
+import { Delete<%= className %>UseCase } from '../application/use-case/delete-<%= fileName %>.use-case';
+<% } -%>
+<% if(methods.includes('FINDBYID')) { -%>
+import { Find<%= className %>ByIdUseCase } from '../application/use-case/gets/find-<%= fileName %>-by-id.use-case';
+<% } -%>
+
+describe('<%= classNameP %>Controller', () => {
+    let controller: <%= classNameP %>Controller;
+    <% if(methods.includes('CREATE')) { -%>
+    let spyCreate<%= className %>UseCase: Create<%= className %>UseCase;
+    <% } -%>
+    <% if(methods.includes('UPDATE')) { -%>
+    let spyUpdate<%= className %>UseCase: Update<%= className %>UseCase;
+    <% } -%>
+    <% if(methods.includes('FINDALL')) { -%>
+    let spyFindAll<%= classNameP %>UseCase: FindAll<%= classNameP %>UseCase;
+    <% } -%>
+    <% if(methods.includes('DELETE')) { -%>
+    let spyDelete<%= className %>UseCase: Delete<%= className %>UseCase;
+    <% } -%>
+    <% if(methods.includes('FINDBYID')) { -%>
+    let spyFind<%= className %>ByIdUseCase: Find<%= className %>ByIdUseCase;
+    <% } -%>
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            controllers: [<%= classNameP %>Controller],
+            providers: [
+                Logger,
+                {
+                    provide: <%= projectAcronym %>PrismaClient,
+                    useFactory: () => mockDeep<<%= projectAcronym %>PrismaClient>(),
+                },
+                    <% if(methods.includes('CREATE')) { -%>
+                {
+                    provide: Create<%= className %>UseCase,
+                    useValue: {
+                        create: jest.fn(),
+                    },
+                },
+                    <% } -%>
+                    <% if(methods.includes('UPDATE')) { -%>
+                {
+                    provide: Update<%= className %>UseCase,
+                    useValue: {
+                        update: jest.fn(),
+                    },
+                },
+                    <% } -%>
+                    <% if(methods.includes('FINDALL')) { -%>
+                {
+                    provide: FindAll<%= classNameP %>UseCase,
+                    useValue: {
+                        findAll: jest.fn(),
+                    },
+                },
+                     <% } -%>
+                     <% if(methods.includes('DELETE')) { -%>
+                {
+                    provide: Delete<%= className %>UseCase,
+                    useValue: {
+                        delete: jest.fn(),
+                    },
+                },
+                     <% } -%>
+                    <% if(methods.includes('FINDBYID')) { -%>
+                {
+                    provide: Find<%= className %>ByIdUseCase,
+                    useValue: {
+                        findById: jest.fn(),
+                    },
+                },
+                     <% } -%>
+            ],
+        }).compile();
+
+        controller = module.get<<%= classNameP %>Controller>(<%= classNameP %>Controller);
+        <% if(methods.includes('CREATE')) { -%>
+        spyCreate<%= className %>UseCase = module.get<Create<%= className %>UseCase>(Create<%= className %>UseCase);
+        <% } -%>
+        <% if(methods.includes('UPDATE')) { -%>
+        spyUpdate<%= className %>UseCase = module.get<Update<%= className %>UseCase>(Update<%= className %>UseCase);
+        <% } -%>
+        <% if(methods.includes('FINDALL')) { -%>
+        spyFindAll<%= classNameP %>UseCase = module.get<FindAll<%= classNameP %>UseCase>(FindAll<%= classNameP %>UseCase);
+        <% } -%>
+        <% if(methods.includes('DELETE')) { -%>
+        spyDelete<%= className %>UseCase = module.get<Delete<%= className %>UseCase>(Delete<%= className %>UseCase);
+        <% } -%>
+        <% if(methods.includes('FINDBYID')) { -%>
+        spyFind<%= className %>ByIdUseCase = module.get<Find<%= className %>ByIdUseCase>(Find<%= className %>ByIdUseCase);
+        <% } -%>
+    });
+
+    describe('crud <%= className %> endpoints', () => {
+        <% if(methods.includes('CREATE')) { -%>
+        it('create', async () => {
+            const spy = jest.spyOn(spyCreate<%= className %>UseCase, 'create');
+            await controller.create(mockCreate<%= className %>Dto);
+
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(mockCreate<%= className %>Dto);
+        });
+        <% } -%>
+
+        <% if(methods.includes('UPDATE')) { -%>
+        it('update', async () => {
+            const spy = jest.spyOn(spyUpdate<%= className %>UseCase, 'update').mockResolvedValue(mock<%= className %>);
+            const <%= name %>Id = mock<%= className %>Id;
+            const update<%= className %>Dto = mockUpdate<%= className %>Dto;
+
+            await controller.update(<%= name %>Id, mockUpdate<%= className %>Dto);
+
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(<%= name %>Id, update<%= className %>Dto);
+        });
+        <% } -%>
+
+        <% if(methods.includes('FINDALL')) { -%>
+        it('find all', async () => {
+            const spy = jest.spyOn(spyFindAll<%= classNameP %>UseCase, 'findAll');
+            await controller.findAll();
+            expect(spy).toHaveBeenCalled();
+        });
+        <% } -%>
+
+        <% if(methods.includes('DELETE')) { -%>
+
+         it('delete', async () => {
+            const spy = jest.spyOn(spyDelete<%= className %>UseCase, 'delete');
+              const <%= name %>Id = mock<%= className %>Id;
+
+             await controller.remove(<%= name %>Id);
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(<%= name %>Id);
+            });
+        <% } -%>
+
+        <% if(methods.includes('FINDBYID')) { -%>
+
+         it('findById', async () => {
+            const spy = jest.spyOn(spyFind<%= className %>ByIdUseCase, 'findById');
+            const  <%= name %>Id = mock<%= className %>Id;
+
+             await controller.findById(<%= name %>Id);
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith( <%= name %>Id);
+            });
+        <% } -%>
+    });
+});

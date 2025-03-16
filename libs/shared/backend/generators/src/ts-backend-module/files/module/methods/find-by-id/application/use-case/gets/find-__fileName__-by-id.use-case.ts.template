@@ -1,0 +1,18 @@
+import { Injectable, Inject } from '@nestjs/common';
+import {
+  <%= className %>Repository,
+  <%= className %>RepositoryToken,
+} from '../../../domain/repositories/<%= fileName %>.repository';
+import { <%= className %> } from '../../../domain/entities/<%= fileName %>.entity';
+
+
+@Injectable()
+export class Find<%= className %>ByIdUseCase {
+    constructor(@Inject(<%= className %>RepositoryToken) private readonly <%= name %>Repository: <%= className %>Repository) { }
+
+    async findById(<%= name %>id: string): Promise<<%= className %> | null> {
+
+        return this.<%= name %>Repository.findById(<%= name %>id);
+
+    }
+}

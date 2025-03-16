@@ -1,0 +1,26 @@
+import { <%= className %> } from '../entities/<%= fileName %>.entity';
+<% if(methods.includes('CREATE')) { -%>
+import { Create<%= className %>Dto } from '../../application/dtos/create-<%= fileName %>.dto';
+<% } -%>
+<% if(methods.includes('UPDATE')) { -%>
+import { Update<%= className %>Dto } from '../../application/dtos/update-<%= fileName %>.dto';
+<% } -%>
+export const <%= className %>RepositoryToken = Symbol('<%= name %>RepositoryToken');
+
+export interface <%= className %>Repository {
+  <% if(methods.includes('FINDALL')) { -%>
+  findAll(): Promise<<%= className %>[]>;
+  <% } -%>
+  <% if(methods.includes('CREATE')) { -%>
+  create(create<%= className %>Dto: Create<%= className %>Dto): Promise<<%= className %> | null >;
+  <% } -%>
+  <% if(methods.includes('UPDATE')) { -%>
+  update(<%= name %>Id: string, update<%= className %>Dto: Update<%= className %>Dto): Promise<<%= className %>| null >;
+  <% } -%>
+  <% if(methods.includes('DELETE')) { -%>
+  delete(<%= name %>Id: string): Promise<void>;
+  <% } -%>
+  <% if(methods.includes('FINDBYID')) { -%>
+  findById(<%= name %>Id: string): Promise<<%= className %> | null >;
+  <% } -%>
+}

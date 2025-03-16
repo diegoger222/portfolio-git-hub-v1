@@ -1,0 +1,14 @@
+import { Injectable, Inject } from '@nestjs/common';
+import {
+  <%= className %>Repository,
+  <%= className %>RepositoryToken,
+} from '../../domain/repositories/<%= fileName %>.repository';
+
+@Injectable()
+export class Delete<%= className %>UseCase {
+    constructor(@Inject(<%= className %>RepositoryToken) private readonly <%= name %>Repository: <%= className %>Repository) { }
+
+    async delete(<%= name %>Id: string) {
+        await this.<%= name %>Repository.delete(<%= name %>Id);
+    }
+}

@@ -1,0 +1,116 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { DeepMockProxy } from 'jest-mock-extended/lib/Mock';
+import { mockDeep } from 'jest-mock-extended';
+import { <%= projectAcronym %>PrismaClient } from '../../core/services/prisma.service';
+import { Prisma<%= className %>Repository } from '../adapters/database/prisma-<%= fileName %>.repository';
+import { 
+    <% if(methods.includes('CREATE')) { -%>
+    mockCreate<%= className %>Dto, 
+    <% } -%>
+    <% if(methods.includes('UPDATE')) { -%>
+    mockUpdate<%= className %>Dto, 
+    <% } -%>
+    <% if(methods.includes('UPDATE') || methods.includes('CREATE') || methods.includes('FINDBYID')) { -%>
+    mock<%= className %>, 
+    <% } -%>
+    <% if(methods.includes('FINDALL')) { -%>
+    mock<%= classNameP %>List,
+    <% } -%>
+    <% if(methods.includes('UPDATE') || methods.includes('DELETE') || methods.includes('FINDBYID')) { -%>
+    mock<%= className %>Id,
+    <% } -%>
+} from './__mocks__/<%= fileName %>.mocks';
+
+describe('Prisma<%= className %>Repository', () => {
+    let repo: Prisma<%= className %>Repository;
+    let spy<%= projectAcronym %>PrismaClient: DeepMockProxy<<%= projectAcronym %>PrismaClient>;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                Prisma<%= className %>Repository,
+                {
+                    provide: <%= projectAcronym %>PrismaClient,
+                    useFactory: () => mockDeep<<%= projectAcronym %>PrismaClient>(),
+                },
+            ],
+        }).compile();
+
+        repo = module.get<Prisma<%= className %>Repository>(Prisma<%= className %>Repository);
+        spy<%= projectAcronym %>PrismaClient = module.get(<%= projectAcronym %>PrismaClient) as DeepMockProxy<<%= projectAcronym %>PrismaClient>;
+    });
+
+<% if(methods.includes('FINDALL')) { -%>
+    it('should call prisma to find all <%= classNameP %>', async () => {
+        const <%= nameP %> = mock<%= classNameP %>List;
+
+        spy<%= projectAcronym %>PrismaClient.<%= name %>.findMany.mockResolvedValue(<%= nameP %>);
+
+        const result = await repo.findAll();
+        expect(result).toEqual(<%= nameP %>);
+        expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.findMany).toHaveBeenCalledTimes(1);
+    });
+<% } -%>
+
+<% if(methods.includes('CREATE')) { -%>
+    it('should call prisma to create a <%= name %>', async () => {
+        spy<%= projectAcronym %>PrismaClient.<%= name %>.create.mockResolvedValue(mock<%= className %>);
+        spy<%= projectAcronym %>PrismaClient.<%= name %>.findUnique.mockResolvedValue(mock<%= className %>);
+        const result = await repo.create(mockCreate<%= className %>Dto);
+        expect(result).toEqual(mock<%= className %>);
+        expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.create).toHaveBeenCalledTimes(1);
+    });
+<% } -%>
+
+<% if(methods.includes('UPDATE')) { -%>
+    it('should call prisma to update a <%= name %>', async () => {
+
+        const <%= name %>Id = mock<%= className %>Id;
+        spy<%= projectAcronym %>PrismaClient.<%= name %>.update.mockResolvedValue(mock<%= className %>);
+
+        const result = await repo.update(<%= name %>Id, mockUpdate<%= className %>Dto);
+        expect(result).toEqual(mock<%= className %>);
+        expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.update).toHaveBeenCalledTimes(1);
+        expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.update).toHaveBeenCalledWith({
+            data: {
+                name: mockUpdate<%= className %>Dto.name,
+            }
+            ,
+            where: {
+                id: <%= name %>Id,
+            },
+        });
+    });
+<% } -%>
+
+<% if(methods.includes('DELETE')) { -%>
+  it('should call prisma to delete an <%= name %>', async () => {
+    const <%= name %>Id = mock<%= className %>Id;
+    await repo.delete(<%= name %>Id);
+    expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.delete).toHaveBeenCalledTimes(1);
+    expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.delete).toHaveBeenCalledWith({
+      where: {
+        id: <%= name %>Id,
+      },
+    });
+  });
+<% } -%>
+
+<% if(methods.includes('FINDBYID')) { -%>
+  it('should call prisma to find <%= name %> by id', async () => {
+    const <%= name %>Id = mock<%= className %>Id;
+    
+    spy<%= projectAcronym %>PrismaClient.<%= name %>.findUnique.mockResolvedValue(mock<%= className %>);
+    
+    const result = await repo.findById(<%= name %>Id);
+    expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.findUnique).toHaveBeenCalledTimes(1);
+    expect(spy<%= projectAcronym %>PrismaClient.<%= name %>.findUnique).toHaveBeenCalledWith({
+      where: {
+        id: <%= name %>Id,
+      },
+    });
+    expect(result).toEqual(mock<%= className %>);
+  });
+<% } -%>
+
+});
