@@ -7,7 +7,10 @@
   "types": "./src/index.d.ts",
   "dependencies": {
     "@nx/devkit": "20.5.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@schematics/angular": "^19.2.3",
+    "typescript": "~5.7.2",
+    "inflection": "^3.0.2"
   },
   "generators": "./generators.json"
 }
