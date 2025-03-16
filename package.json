@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "generate": "nx g @template-hex/testgenerator:generator",
-    "generatetest": "nx g @template-hex/testgenerator:generator --dry-run",
+    "generate": "pnpm nx g @portfolio-git-hub-v1/generator:ts-backend-module ",
+    "generatetest": "pnpm nx g @portfolio-git-hub-v1/generator:ts-backend-module --dry-run --verbose  ",
     "dockerstart": "docker start w-backend",
     "run-backend": "pnpm nx serve w-n-backend",
     "run-frontend": "pnpm nx serve frontendtm",
