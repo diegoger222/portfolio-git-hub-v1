@@ -1,0 +1,19 @@
+import { Injectable, Inject } from '@nestjs/common';
+import {
+  <%= className %>Repository,
+  <%= className %>RepositoryToken,
+} from '../../domain/repositories/<%= fileName %>.repository';
+import { Create<%= className %>Dto } from '../dtos/create-<%= fileName %>.dto';
+import { <%= className %> } from '../../domain/entities/<%= fileName %>.entity';
+
+
+@Injectable()
+export class Create<%= className %>UseCase {
+    constructor(@Inject(<%= className %>RepositoryToken) private readonly <%= name %>Repository: <%= className %>Repository) { }
+
+    async create(create<%= className %>Dto: Create<%= className %>Dto): Promise<<%= className %> | null>  {
+        
+        return this.<%= name %>Repository.create(create<%= className %>Dto);
+
+    }
+}

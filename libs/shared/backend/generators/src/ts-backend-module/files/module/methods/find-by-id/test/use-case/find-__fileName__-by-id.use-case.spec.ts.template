@@ -1,0 +1,35 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>Repository, <%= className %>RepositoryToken } from '../../domain/repositories/<%= fileName%>.repository';
+import { mock<%= className %>, mock<%= className %>Id } from '../__mocks__/<%= fileName%>.mocks';
+import { Find<%= className %>ByIdUseCase } from '../../application/use-case/gets/find-<%= fileName%>-by-id.use-case';
+
+describe('Find<%= className %>ByIdUseCase', () => {
+    let find<%= className %>ByIdUseCase: Find<%= className %>ByIdUseCase;
+    let repository: <%= className %>Repository;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                Find<%= className %>ByIdUseCase,
+                {
+                    provide: <%= className %>RepositoryToken,
+                    useValue: {
+                        findById: jest.fn(),
+                    },
+                },
+            ],
+        }).compile();
+
+        find<%= className %>ByIdUseCase = module.get<Find<%= className %>ByIdUseCase>(Find<%= className %>ByIdUseCase);
+        repository = module.get<<%= className %>Repository>(<%= className %>RepositoryToken);
+    });
+
+    describe('findById', () => {
+        it('should return an existing <%= name %>', async () => {
+            const id = mock<%= className %>Id;
+            jest.spyOn(repository, 'findById').mockResolvedValue(mock<%= className %>);
+            const result = await  find<%= className %>ByIdUseCase.findById(id);
+            expect(result).toEqual(mock<%= className %>);
+        });
+    });
+});

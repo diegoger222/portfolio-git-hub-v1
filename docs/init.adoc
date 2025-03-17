@@ -12,3 +12,18 @@ pmpm i @nrwl/nx-plugin
 
 pnpm install --save-dev @nx/nest
 pnpm install --save-dev @nx/node
+
+pnpm add @nestjs/common
+pnpm add @nestjs/core
+
+___
+
+nx/node
+
+webpack
+
+
+pnpm add @prisma/client
+pnpm add dotenv-flow
+pnpm add dotenv-flow-cli
+pnpm add -D prisma

@@ -1,0 +1,35 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>Repository, <%= className %>RepositoryToken } from '../../domain/repositories/<%= fileName %>.repository';
+import { mockCreate<%= className %>Dto, mock<%= className %> } from '../__mocks__/<%= fileName %>.mocks';
+import { Create<%= className %>UseCase } from '../../application/use-case/create-<%= fileName %>.use-case';
+
+describe('Create<%= className %>UseCase', () => {
+    let create<%= className %>UseCase: Create<%= className %>UseCase;
+    let repository: <%= className %>Repository;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                Create<%= className %>UseCase,
+                {
+                    provide: <%= className %>RepositoryToken,
+                    useValue: {
+                        create: jest.fn(),
+                    },
+                },
+            ],
+        }).compile();
+
+        create<%= className %>UseCase = module.get<Create<%= className %>UseCase>(Create<%= className %>UseCase);
+        repository = module.get<<%= className %>Repository>(<%= className %>RepositoryToken);
+    });
+
+    describe('create', () => {
+        it('should create a new <%= fileName %>', async () => {
+            jest.spyOn(repository, 'create').mockResolvedValue(mock<%= className %>);
+            const result = await create<%= className %>UseCase.create(mockCreate<%= className %>Dto);
+            expect(repository.create).toHaveBeenCalledWith(mockCreate<%= className %>Dto);
+            expect(result).toEqual(mock<%= className %>);
+        });
+    });
+});

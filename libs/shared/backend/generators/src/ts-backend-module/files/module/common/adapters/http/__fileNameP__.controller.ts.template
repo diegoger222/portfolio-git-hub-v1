@@ -1,0 +1,136 @@
+import {
+    Controller,
+    Logger,
+    <% if(methods.includes('CREATE') || methods.includes('UPDATE')) { -%>
+    ValidationPipe,
+    <% } -%>
+    <% if(methods.includes('FINDBYID') || methods.includes('UPDATE') || methods.includes('DELETE')) { -%>
+    Param,
+    <% } -%>
+    <% if(methods.includes('CREATE') || methods.includes('UPDATE')) { -%>
+    Body,
+    <% } -%>
+    <% if(methods.includes('CREATE')) { -%>
+    Post,
+    <% } -%>
+    <% if(methods.includes('UPDATE')) { -%>
+    Put,
+    <% } -%>
+    <% if(methods.includes('FINDALL') || methods.includes('FINDBYID')) { -%>
+    Get,
+    <% } -%>
+    <% if(methods.includes('DELETE')) { -%>
+    Delete,
+    <% } -%>
+
+} from '@nestjs/common';
+import { ApiResponses } from '@portfolio-nx-v2/shared/backend/decorators';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+<% if(methods.includes('CREATE') || methods.includes('UPDATE')|| methods.includes('FINDBYID')|| methods.includes('FINDALL')) { -%>
+import { <%= className %> } from '../../domain/entities/<%= fileName %>.entity'
+<% } -%>
+<% if(methods.includes('CREATE')) { -%>
+import { Create<%= className %>UseCase } from '../../application/use-case/create-<%= fileName %>.use-case';
+import { Create<%= className %>Dto } from '../../application/dtos/create-<%= fileName %>.dto';
+<% } -%>
+<% if(methods.includes('UPDATE')) { -%>
+import { Update<%= className %>UseCase } from '../../application/use-case/update-<%= fileName %>.use-case';
+import { Update<%= className %>Dto } from '../../application/dtos/update-<%= fileName %>.dto';
+<% } -%>
+<% if(methods.includes('FINDALL')) { -%>
+import { FindAll<%= classNameP %>UseCase } from '../../application/use-case/gets/find-all-<%= fileNameP %>.use-case';
+<% } -%>
+<% if(methods.includes('DELETE')) { -%>
+import { Delete<%= className %>UseCase } from '../../application/use-case/delete-<%= fileName %>.use-case';
+<% } -%>
+<% if(methods.includes('FINDBYID')) { -%>
+import { Find<%= className %>ByIdUseCase } from '../../application/use-case/gets/find-<%= fileName %>-by-id.use-case';
+<% } -%>
+
+@ApiTags('<%= projectAcronym %> Backend - <%= className %>')
+@Controller('<%= fileNameP %>')
+export class <%= classNameP %>Controller { 
+    constructor( 
+        private readonly logger: Logger,
+        <% if(methods.includes('CREATE')) { -%>
+        private readonly create<%= className %>UseCase: Create<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('UPDATE')) { -%>
+        private readonly update<%= className %>UseCase: Update<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('FINDALL')) { -%>
+        private readonly findAll<%= classNameP %>UseCase: FindAll<%= classNameP %>UseCase,
+        <% } -%>
+        <% if(methods.includes('DELETE')) { -%>
+        private readonly delete<%= className %>UseCase: Delete<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('FINDBYID')) { -%>
+        private readonly find<%= className %>ByIdUseCase: Find<%= className %>ByIdUseCase,
+        <% } -%>
+      ) { }
+
+
+<% if(methods.includes('CREATE')) { %>
+    @ApiOperation({ summary: 'Create <%= className %>' })
+    @ApiResponses()
+    @Post() 
+    async create(
+        @Body(ValidationPipe) create<%= className %>Dto: Create<%= className %>Dto
+    ): Promise<<%= className %> | null> {
+        this.logger.debug('[<%= className %>/API] creating <%= className %>'); 
+            const <%= name %> = await this.create<%= className %>UseCase.create(create<%= className %>Dto);
+            this.logger.debug('[<%= className %>/API] <%= className %> created');
+            return <%= name %>;
+    }
+
+<% } %>
+
+<% if(methods.includes('UPDATE')) { %>
+    @ApiOperation({ summary: 'Update <%= className %>' })
+    @ApiResponses()
+    @Put(':<%= name %>Id')
+    async update(
+        @Param('<%= name %>Id') <%= name %>Id: string,
+        @Body(ValidationPipe) update<%= className %>Dto: Update<%= className %>Dto
+    ): Promise<<%= className %> | null> {
+        this.logger.debug('[<%= className %>/API] updating <%= className %>');
+            const update<%= className %> = await this.update<%= className %>UseCase.update(<%= name %>Id, update<%= className %>Dto);
+            this.logger.debug('[<%= className %>/API] <%= className %> updated');
+            return update<%= className %>;
+    }
+<% } %>
+
+<% if(methods.includes('FINDALL')) { %>
+
+    @ApiOperation({ summary: 'Get all <%= className %>' })
+    @ApiResponses()
+    @Get()
+    async findAll(): Promise<<%= className %>[]> {
+            return this.findAll<%= classNameP %>UseCase.findAll();
+    }
+<% } %>
+
+
+<% if(methods.includes('DELETE')) { %>
+
+  @ApiOperation({ summary: 'Delete <%= className %> by <%= name %>Id' })
+  @ApiResponses()
+  @Delete(':<%= name %>Id')
+  async remove(@Param('<%= name %>Id') <%= name %>Id: string): Promise<void> {
+    await this.delete<%= className %>UseCase.delete(<%= name %>Id);
+    this.logger.debug(`[<%= className %>/API] <%= className %> deleted`);
+  }
+<% } %>
+
+
+<% if(methods.includes('FINDBYID')) { -%>
+
+    @ApiOperation({ summary: 'Get <%= className %> by <%= name %>Id' })
+    @ApiResponses()
+    @Get('/:<%= name %>Id')
+    async findById(@Param('<%= name %>Id') <%= name %>Id: string): Promise<<%= className %> | null> {
+        return this.find<%= className %>ByIdUseCase.findById(<%= name %>Id);
+    }
+<% } -%>
+
+}

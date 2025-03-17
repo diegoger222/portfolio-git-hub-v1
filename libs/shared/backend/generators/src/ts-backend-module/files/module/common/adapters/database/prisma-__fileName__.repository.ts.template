@@ -1,0 +1,85 @@
+import {
+  <% if(methods.includes('UPDATE')) { -%> Prisma, 
+  <% } -%>
+   <%= className %> as Prisma<%= className %>,
+} from '.prisma/client-<%= projectAcronymLowCase %>';
+import { Injectable } from '@nestjs/common';
+import { <%= className %>Repository } from '../../domain/repositories/<%= fileName %>.repository';
+import { <%= projectAcronym %>PrismaClient } from '../../../core/services/prisma.service';
+<% if(methods.includes('CREATE') || methods.includes('UPDATE')|| methods.includes('FINDBYID')) { -%>
+import { <%= className %> } from '../../domain/entities/<%= fileName %>.entity';
+<% } -%>
+<% if(methods.includes('CREATE')) { -%>
+import { Create<%= className %>Dto } from '../../application/dtos/create-<%= fileName %>.dto';
+<% } -%>
+<% if(methods.includes('UPDATE')) { -%>
+import { Update<%= className %>Dto } from '../../application/dtos/update-<%= fileName %>.dto';
+<% } -%>
+
+@Injectable()
+export class Prisma<%= className %>Repository implements <%= className %>Repository {
+      constructor(private readonly prisma: <%= projectAcronym %>PrismaClient) { }
+
+<% if(methods.includes('FINDALL')) { %>
+  async findAll() {
+        const results = await this.prisma.<%= name %>.findMany({});
+        return results.map((item) => this.fromPrisma<%= className %>ToDomainEntity(item));
+  }
+<% } %>
+
+<% if(methods.includes('CREATE')) { %>
+  async create(create<%= className %>Dto: Create<%= className %>Dto): Promise<<%= className %> | null > {
+        const entity = await this.prisma.<%= name %>.create({
+            data: create<%= className %>Dto,
+        });
+        return this.fromPrisma<%= className %>ToDomainEntity(entity);
+  }
+<% } %>
+
+<% if(methods.includes('UPDATE')) { %>
+  async update(<%= name %>Id: string, update<%= className %>Dto: Update<%= className %>Dto): Promise<<%= className %>| null > {
+            const data: Prisma.<%= className %>UpdateInput = {
+              ...update<%= className %>Dto
+            };
+        const entity = await this.prisma.<%= name %>.update({
+            where: { id: <%= name %>Id },
+            data: data,
+        });
+
+        return this.fromPrisma<%= className %>ToDomainEntity(entity);
+  }
+<% } %>
+
+<% if(methods.includes('DELETE')) { %>
+  async delete(<%= name %>Id: string): Promise<void> {
+    await this.prisma.<%= name %>.delete({
+      where: {
+        id: <%= name %>Id,
+      },
+    });
+  }
+  <% } %>
+
+<% if(methods.includes('FINDBYID')) { -%>
+  async findById(<%= name %>Id: string): Promise<<%= className %> | null > {
+     const entity = await this.prisma.<%= name %>.findUnique({
+      where: {
+        id: <%= name %>Id,
+      },
+    });
+    
+    if (!entity) return null;
+
+    return this.fromPrisma<%= className %>ToDomainEntity(entity);
+  }
+  <% } -%>
+
+    private readonly fromPrisma<%= className %>ToDomainEntity = (
+    <%= name %>: Prisma<%= className %>
+  ) => {
+    const entity = new <%= className %>();
+    entity.id = <%= name %>.id;
+    entity.name = <%= name %>.name;
+    return entity;
+  }
+}

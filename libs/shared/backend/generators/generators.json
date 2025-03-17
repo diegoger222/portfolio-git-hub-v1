@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "ts-backend-module": {
+      "factory": "./src/ts-backend-module/ts-backend-module.ts",
+      "schema": "./src/ts-backend-module/schema.json",
+      "description": "ts-backend-module generator"
+    }
+  }
+}

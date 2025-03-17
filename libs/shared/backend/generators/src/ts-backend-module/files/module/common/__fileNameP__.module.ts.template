@@ -1,0 +1,51 @@
+import { Module, Logger} from '@nestjs/common';
+import {<%= classNameP %>Controller } from './adapters/http/<%= fileNameP %>.controller';
+import {<%= className %>RepositoryToken } from './domain/repositories/<%= fileName %>.repository';
+import { Prisma<%= className %>Repository } from './adapters/database/prisma-<%= fileName %>.repository';
+import { <%= classNameP %>Service } from './application/<%= fileNameP%>.service';
+<% if(methods.includes('CREATE')) { -%>
+import { Create<%= className %>UseCase } from './application/use-case/create-<%= fileName%>.use-case';
+<% } -%>
+<% if(methods.includes('UPDATE')) { -%>
+import { Update<%= className %>UseCase } from './application/use-case/update-<%= fileName%>.use-case';
+<% } -%>
+<% if(methods.includes('FINDALL')) { -%>
+import { FindAll<%= classNameP %>UseCase } from './application/use-case/gets/find-all-<%= fileNameP%>.use-case';
+<% } -%>
+<% if(methods.includes('DELETE')) { -%>
+import { Delete<%= className %>UseCase } from './application/use-case/delete-<%= fileName %>.use-case';
+<% } -%>
+<% if(methods.includes('FINDBYID')) { -%>
+import { Find<%= className %>ByIdUseCase } from './application/use-case/gets/find-<%= fileName %>-by-id.use-case';
+<% } -%>
+import { <%= projectAcronym %>PrismaClient } from '../core/services/prisma.service';
+
+@Module({
+    controllers: [<%= classNameP %>Controller], 
+    providers: [
+        <%= classNameP %>Service,
+        <% if(methods.includes('CREATE')) { -%>
+        Create<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('UPDATE')) { -%>
+        Update<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('FINDALL')) { -%>
+        FindAll<%= classNameP %>UseCase,
+        <% } -%>
+        <% if(methods.includes('DELETE')) { -%>
+        Delete<%= className %>UseCase,
+        <% } -%>
+        <% if(methods.includes('FINDBYID')) { -%>
+        Find<%= className %>ByIdUseCase,
+        <% } -%>
+        <%= projectAcronym %>PrismaClient,
+        Logger,
+       {
+        provide:<%= className %>RepositoryToken, 
+        useClass: Prisma<%= className %>Repository,
+        },
+        ],
+         exports: [<%= classNameP %>Service],
+})
+export class <%= classNameP %>Module {}

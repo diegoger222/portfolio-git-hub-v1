@@ -1,0 +1,39 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import {
+    <%= className %>Repository,
+    <%= className %>RepositoryToken,
+} from '../../domain/repositories/<%= fileName %>.repository';
+import { mock<%= className %>Id } from '../__mocks__/<%= fileName %>.mocks';
+import { Delete<%= className %>UseCase } from '../../application/use-case/delete-<%= fileName %>.use-case';
+
+describe('DeleteUserUseCase', () => {
+    let delete<%= className %>UseCase: Delete<%= className %>UseCase;
+    let repository: <%= className %>Repository;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                Delete<%= className %>UseCase,
+                {
+                    provide: <%= className %>RepositoryToken,
+                useValue: {
+                    delete: jest.fn(),
+                },
+                },
+            ],
+    }).compile();
+
+    delete<%= className %>UseCase = module.get<Delete<%= className %>UseCase>(Delete<%= className %>UseCase);
+    repository = module.get<<%= className %>Repository>(<%= className %>RepositoryToken);
+    });
+
+describe('delete', () => {
+    it('should delete an existing <%= fileName %>', async () => {
+        const id = mock<%= className %>Id;
+        jest.spyOn(repository, 'delete').mockResolvedValue();
+        await delete<%= className %>UseCase.delete(id);
+        expect(repository.delete).toHaveBeenCalledWith(id);
+    });
+});
+
+});

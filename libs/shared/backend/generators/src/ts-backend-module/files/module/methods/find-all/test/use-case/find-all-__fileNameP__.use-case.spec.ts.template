@@ -1,0 +1,35 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>Repository, <%= className %>RepositoryToken } from '../../domain/repositories/<%= fileName%>.repository';
+import { mock<%= classNameP %>List } from '../__mocks__/<%= fileName%>.mocks';
+import { FindAll<%= classNameP %>UseCase } from '../../application/use-case/gets/find-all-<%= fileNameP%>.use-case';
+
+describe('FindAll<%= classNameP %>UseCase', () => {
+    let findAll<%= classNameP %>UseCase: FindAll<%= classNameP %>UseCase;
+    let repository: <%= className %>Repository;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [
+                FindAll<%= classNameP %>UseCase,
+                {
+                    provide: <%= className %>RepositoryToken,
+                    useValue: {
+                        findAll: jest.fn(),
+                    },
+                },
+            ],
+        }).compile();
+
+        findAll<%= classNameP %>UseCase = module.get<FindAll<%= classNameP %>UseCase>(FindAll<%= classNameP %>UseCase);
+        repository = module.get<<%= className %>Repository>(<%= className %>RepositoryToken);
+    });
+
+    describe('find', () => {
+        it('should return an array of <%= nameP%>', async () => {
+            jest.spyOn(repository, 'findAll').mockResolvedValue(mock<%= classNameP %>List);
+            const result = await findAll<%= classNameP %>UseCase.findAll();
+            expect(result).toEqual(mock<%= classNameP %>List);
+        });
+
+    });
+});
