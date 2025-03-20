@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 enum InputType {
   STANDARD = 'standard',
@@ -19,12 +19,12 @@ enum InputType {
   templateUrl: './pd-input.component.html',
   styleUrls: ['./pd-input.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PdInputComponent implements OnInit {
   @Input() id?: string;
-  @Input() label = 'Button';
+  @Input({ required: true }) label!: string; //this is the text that will be displayed
   @Input() variant: 'text' | 'textarea' = 'text'; //text or textarea?  'primary' | 'secondary' | 'danger' = 'primary'
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() mode: 'standard' | 'brand' | 'dark' = 'standard';
@@ -43,6 +43,7 @@ export class PdInputComponent implements OnInit {
   @Input() maxLength = '350'; //why string?
   @Input() loading = false;
   @Input() fullWidth = false;
+  @Input() isReadOnly = false;
   @Input() disabled = false;
   @Output() iconClick = new EventEmitter<Event>();
 
@@ -74,6 +75,7 @@ export class PdInputComponent implements OnInit {
 
   getClassObject() {
     return {
+      error: this.control && this.control.invalid && this.control.touched,
       [this.mode]: !!this.mode,
       [this.size]: !!this.size,
       [this.variant]: !!this.variant,

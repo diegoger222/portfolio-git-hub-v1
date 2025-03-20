@@ -13,11 +13,21 @@
     [submit]="true"
 >
 </pd-app-button>
-<div class="container">
+<div class="form-container">
+    <div class="container">
     <pd-input
-        id="test-input"
+        id="name"
         label="test"
         [fullWidth]="true"
+        label="First Name TEST"
+        [required]= "true"
+        [control]="formUtils.castToFromControl('name', testForm)"
+        [errorMessages]="{
+            required: 'First Name is required',
+            pattern: 'First Name is invalid',
+        }"
+        [disabled]="true"
     >
     </pd-input>
+    </div>
 </div>
