@@ -74,6 +74,7 @@ export class PdInputComponent implements OnInit {
 
   getClassObject() {
     return {
+      [this.mode]: !!this.mode,
       [this.size]: !!this.size,
       [this.variant]: !!this.variant,
     };
