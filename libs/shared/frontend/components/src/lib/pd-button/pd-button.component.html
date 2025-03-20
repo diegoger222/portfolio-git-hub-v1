@@ -1,0 +1,22 @@
+<button 
+[id]="id"
+[ngClass]="getClassObject()"
+[ngStyle]="{with: fullWidth ? '100%' : 'auto'}"
+[class]="buttonClasses" 
+[disabled]="disabled || loading"
+[type]="submit ? 'submit' : 'button'"
+(click)="handleClick($event)"
+(keydown)="handleKeyDown($event)"
+>
+   <div class = "button-container" [ngStyle]="{'flex-direction': getTextAlignment()}">
+      @if(icon){
+        <img class="icon" [src]="icon" alt = "icon" />
+      }
+
+      @if(label){
+        {{label}}
+      }
+
+   </div>
+  </button>
+  

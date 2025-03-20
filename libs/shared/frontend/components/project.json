@@ -2,7 +2,7 @@
   "name": "component",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/frontend/components/src",
-  "prefix": "lib",
+  "prefix": "pd",
   "projectType": "library",
   "tags": [],
   "targets": {
