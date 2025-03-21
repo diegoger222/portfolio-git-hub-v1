@@ -1,4 +1,3 @@
-// button.component.ts
 import {
   Component,
   Input,
