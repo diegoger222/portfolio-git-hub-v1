@@ -1,49 +1,45 @@
-<!-- From Uiverse.io by alexruix "input-group" --> 
-<div 
-
-class="input-group"
->
-
-    <input 
-    required="" 
-    type="text" 
-    name="text" 
-    autocomplete="off" 
+<!-- From Uiverse.io by alexruix "input-group" -->
+<div class="input-group">
+  <input
+    required=""
+    type="text"
+    name="text"
+    autocomplete="off"
     class="pd-input-textbox"
-    [ngClass]='getClassObject()'
+    [ngClass]="getClassObject()"
     [formControl]="control"
     [readOnly]="isReadOnly"
     [disabled]="disabled"
-    >
+  />
 
-    <label for class="user-label">{{label}}
-        <label for class="required" *ngIf="required">*</label>
-    </label>
+  <label for class="user-label"
+    >{{ label }}
+    <label for class="required" *ngIf="required">*</label>
+  </label>
 
-    @if((control && control.invalid && control.touched)){
-        <div class="pd-error-message-container">
-            <!-- Here the error image and text-->
-            <span
-                class="material-symbols-outlined"
-                [ngClass]="{
+  @if((control && control.invalid && control.touched)){
+  <div class="pd-error-message-container">
+    <!-- Here the error image and text-->
+    <span
+      class="material-symbols-outlined"
+      [ngClass]="{
                     error: control.invalid && control.touched,
                     'standard': mode === 'standard',
                     'brand': mode === 'dark' || mode === 'brand',
                 }"
-            >  
-            {{control.invalid && control.touched ? 'error': 'info'}}          
-            </span>
-            <p
-            class="pd-error-message"
-            [ngClass]="{
+    >
+      {{ control.invalid && control.touched ? 'error' : 'info' }}
+    </span>
+    <p
+      class="pd-error-message"
+      [ngClass]="{
                 error: control.invalid && control.touched,
                 'standard': mode === 'standard',  
                 'brand': mode === 'dark' || mode === 'brand',
             }"
-            >
-            {{control.invalid && control.touched ? getErrorMessages() : 'AAA'}}
-            </p>
-
-        </div>
-    }
+    >
+      {{ control.invalid && control.touched ? getErrorMessages() : 'AAA' }}
+    </p>
+  </div>
+  }
 </div>

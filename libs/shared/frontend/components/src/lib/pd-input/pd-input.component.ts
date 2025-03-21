@@ -52,10 +52,9 @@ export class PdInputComponent implements OnInit {
 
   ngOnInit() {
     if (this.variant === 'textarea' && this.control) {
-      const validators = [
-        this.control.validator,
-        Validators.maxLength(+this.maxLength),
-      ].filter((x) => x !== null && x !== undefined);
+      const validators = [this.control.validator, Validators.maxLength(+this.maxLength)].filter(
+        (x) => x !== null && x !== undefined
+      );
       this.control.setValidators(validators);
       this.control.valueChanges.subscribe((value) => {
         if (!value) {
