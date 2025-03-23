@@ -43,7 +43,6 @@ export class PdInputComponent implements OnInit {
   @Input() loading = false;
   @Input() fullWidth = false;
   @Input() isReadOnly = false;
-  @Input() disabled = false;
   @Output() iconClick = new EventEmitter<Event>();
 
   chartCount = 0;

@@ -1,33 +1,31 @@
-
 <!--<app-nx-welcome></app-nx-welcome>
 <router-outlet></router-outlet> -->
 
 <pd-test></pd-test>
 <pd-app-button
-    id="test"
-    variant="primary"
-    label="Test"
-    type="label"
-    [fullWidth]="true"
-    (clickEvent)="onClickPatata()"
-    [submit]="true"
+  id="test"
+  variant="primary"
+  label="Test"
+  type="label"
+  [fullWidth]="true"
+  (clickEvent)="onClickPatata()"
+  [submit]="true"
 >
 </pd-app-button>
 <div class="form-container">
-    <div class="container">
+  <div class="container">
     <pd-input
-        id="name"
-        label="test"
-        [fullWidth]="true"
-        label="First Name TEST"
-        [required]= "true"
-        [control]="formUtils.castToFromControl('name', testForm)"
-        [errorMessages]="{
+      id="name"
+      label="test"
+      [fullWidth]="true"
+      label="First Name TEST"
+      [required]="true"
+      [control]="formUtils.castToFromControl('name', testForm)"
+      [errorMessages]="{
             required: 'First Name is required',
             pattern: 'First Name is invalid',
         }"
-        [disabled]="true"
     >
     </pd-input>
-    </div>
+  </div>
 </div>
