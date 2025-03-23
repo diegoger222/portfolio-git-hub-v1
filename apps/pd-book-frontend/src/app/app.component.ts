@@ -10,13 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FromUtils } from './shared/utils/form.utils';
 
 @Component({
-  imports: [
-    NxWelcomeComponent,
-    RouterModule,
-    TestComponent,
-    ButtonComponent,
-    PdInputComponent,
-  ],
+  imports: [RouterModule, TestComponent, ButtonComponent, PdInputComponent],
   providers: [FromUtils],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,7 +27,7 @@ export class AppComponent implements OnInit {
         updateOn: 'blur',
       }),
     });
-    //this.testForm.controls['name'].disable();
+    //For disable : this.testForm.controls['name'].disable();
   }
 
   async onClickPatata() {
