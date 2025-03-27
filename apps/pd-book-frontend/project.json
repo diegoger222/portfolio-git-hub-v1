@@ -48,9 +48,27 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "local": {
+          "optimization": false,
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "6mb",
+              "maximumError": "20mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "400kb",
+              "maximumError": "1024kb"
+            }
+          ]
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "local"
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -60,9 +78,12 @@
         },
         "development": {
           "buildTarget": "pd-book-frontend:build:development"
+        },
+        "local": {
+          "buildTarget": "pd-book-frontend:build:local"
         }
       },
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "local",
       "options": {
         "proxyConfig": "apps/pd-book-frontend/proxy.conf.json"
       }
