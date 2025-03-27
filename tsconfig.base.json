@@ -16,6 +16,9 @@
     "paths": {
       "@portfolio-git-hub-v1/generator": [
         "libs/shared/backend/generators/src/index.ts"
+      ],
+      "@portfolio-git-hub-v1/generic-components": [
+        "libs/shared/frontend/components/src/index.ts"
       ]
     }
   },

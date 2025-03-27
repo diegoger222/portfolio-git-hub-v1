@@ -1,0 +1,115 @@
+/* From Uiverse.io by alexruix */
+.input-group {
+  position: relative;
+}
+
+.user-label {
+  position: absolute;
+  left: 15px;
+  color: #7c7c7c;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus ~ label,
+input:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #212121;
+  padding: 0 0.2em;
+  color: #2196f3;
+}
+
+//this mean that when the input is focused or valid, the label will be moved up and scaled to 0.8
+.pd-input-textbox:focus ~ label,
+pd-input-textbox:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #ffffff;
+  padding: 0 0.2em;
+  color: #2196f3;
+}
+
+//this at the same time with the before doesn't work
+.pd-input-textbox:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #ffffff;
+  padding: 0 0.2em;
+  color: #2196f3;
+}
+
+//This is the text input box
+.pd-input-textbox {
+  //here the coomon config
+  position: relative;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 16px;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  &.standard {
+    border: solid 1.5px #9e9e9e;
+    background: none;
+    color: #313131; //This is the color of the text you write
+    //placeholderm, focus, error, disabled
+    &::placeholder {
+      color: #9e9e9e;
+    }
+    &:focus,
+    &:valid {
+      outline: none;
+      border: 1.5px solid #1a73e8;
+    }
+    &.error {
+      border: 1.5px solid #f44336;
+    }
+    &:disabled {
+      background-color: #f7f7f7;
+      color: #b2b2b2; //9e9e9e
+    }
+  }
+
+  //other modes
+}
+
+.pd-error-message {
+  width: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  margin: 0;
+  &-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-direction: row;
+  }
+  &.standard {
+    color: #f44336;
+    &.error {
+      color: #f44336;
+    }
+  }
+}
+
+.material-symbols-outlined {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  color: #f44336;
+  &.standard {
+    color: #f44336;
+    &.error {
+      color: #f44336;
+    }
+  }
+
+  &.visibuility-button {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+  }
+}

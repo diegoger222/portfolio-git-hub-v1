@@ -1,0 +1,68 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+  &:hover {
+    background-color: #17125e;
+  }
+  &:focus {
+    background-color: #007bff;
+    outline: none;
+  }
+}
+
+//need to define primary hover focus
+//primary light
+
+//primary only icon padding 10px primary.neutral.icon-only
+.primary {
+  background: #007bff;
+  color: white;
+}
+.secondary {
+  background: #6c757d;
+  color: white;
+}
+.danger {
+  background: #dc3545;
+  color: white;
+}
+
+//height 40 line-height 20
+.small {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.large {
+  font-size: 20px;
+  padding: 15px 30px;
+}
+
+.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
