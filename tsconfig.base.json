@@ -14,12 +14,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@portfolio-git-hub-v1/generator": [
-        "libs/shared/backend/generators/src/index.ts"
-      ],
-      "@portfolio-git-hub-v1/generic-components": [
-        "libs/shared/frontend/components/src/index.ts"
-      ]
+      "@portfolio-git-hub-v1/generator": ["libs/shared/backend/generators/src/index.ts"],
+      "@portfolio-git-hub-v1/generic-components": ["libs/shared/frontend/components/src/index.ts"],
+      "@portfolio-git-hub-v1/nest-keycloak": ["libs/shared/backend/nest-keycloak/src/index.ts"],
+      "@portfolio-git-hub-v1/ts-interfaces": ["libs/global/interfaces/ts-interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

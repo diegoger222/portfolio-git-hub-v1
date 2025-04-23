@@ -28,7 +28,8 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      }
+      },
+      "exclude": ["libs/shared/backend/nest-keycloak/*"]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -66,6 +67,15 @@
         "serveTargetName": "serve",
         "buildImageTargetName": "build-image",
         "buildInfoTargetName": "build-info"
+      }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["libs/shared/backend/nest-keycloak/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        }
       }
     }
   ],
