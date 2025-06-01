@@ -1,0 +1,2 @@
+Microservicio para gestionar la autenticación.
+Modulo de gestion de Errores y logs. Puede ademas mejorarse con un microservicio de logs o algo parecido.

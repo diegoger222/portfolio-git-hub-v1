@@ -1,10 +1,11 @@
 package com.w_backend.demo.modules.category.infrastructure.api.rest.mappers;
 
-import java.util.Locale.Category;
+import com.w_backend.demo.modules.category.domain.models.Category;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import com.w_backend.demo.modules.category.application.input.use_case.create_category.CreateCategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.response.CategoryResponse;
 
@@ -15,7 +16,7 @@ public interface CategoryRestApiMapper {
 
     // Map the domain model to the response
     CategoryResponse domainModelToCategoryResponse(Category category);
+    
+    CreateCategoryRequest categoryResponseToCreateCategoryRequest(CategoryRequest categoryRequest);
 
-    // Map the request to the domain model
-    Category categoryRequestToDomainModel(CategoryRequest categoryRequest);
 }

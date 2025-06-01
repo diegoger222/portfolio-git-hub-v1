@@ -1,0 +1,317 @@
+<section class="carousel" aria-label="Carrusel de tarjetas">
+  <header class="carousel-header">
+    <h2 class="carousel-title">Título del Carrusel</h2>
+    <p class="carousel-description">Descripción general del carrusel o sección.</p>
+  </header>
+  <div class="carousel-container">
+    <div
+      class="carousel-card"
+      *ngFor="let item of items; let i = index; trackBy: trackByIndex"
+      [class.active]="i === currentIndex"
+      [attr.aria-hidden]="i !== currentIndex"
+      tabindex="-1"
+    >
+      <div class="image-container">
+        <img [src]="item.image" [alt]="item.title" />
+      </div>
+      <div class="card-content">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <button class="action-button">{{ item.buttonText }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-dots" role="tablist" aria-label="Indicadores de carrusel">
+    <button
+      *ngFor="let item of items; let i = index; trackBy: trackByIndex"
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+      [attr.aria-label]="'Ir a la tarjeta ' + (i + 1)"
+      [attr.aria-selected]="i === currentIndex"
+      role="tab"
+      type="button"
+    ></button>
+  </div>
+
+  <div class="carousel-controls">
+    <button (click)="prev()" aria-label="Anterior" type="button">❮</button>
+    <button (click)="next()" aria-label="Siguiente" type="button">❯</button>
+  </div>
+</section>
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+
+  .carousel-header {
+    text-align: left;
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+
+  .carousel-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    color: #222;
+  }
+
+  .carousel-description {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 0 0 20px 0;
+  }
+
+  .carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+    position: relative;
+    margin-top: 0;
+  }
+
+  .carousel-card {
+    background: #fff;
+    border: 3px solid #e53935;
+    border-radius: 12px;
+    min-width: 320px;
+    max-width: 320px;
+    min-height: 320px;
+    margin: 0 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: opacity 0.4s, transform 0.4s;
+    opacity: 0;
+    z-index: 1;
+
+    &.active {
+      display: flex;
+      opacity: 1;
+      z-index: 2;
+      transform: scale(1.04);
+    }
+  }
+
+  .image-container {
+    width: 90%;
+    height: 120px;
+    background: #fff;
+    border: 3px solid #ffeb3b;
+    border-radius: 8px;
+    margin: 20px auto 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card-content {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+      color: #222;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #222;
+      margin-bottom: 10px;
+    }
+  }
+
+  .action-button {
+    background: #fff;
+    border: 3px solid #9c27b0;
+    color: #9c27b0;
+    border-radius: 5px;
+    padding: 6px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: #9c27b0;
+      color: #fff;
+    }
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0 10px 0;
+    gap: 10px;
+
+    button {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #03a9f4;
+      background: #fff;
+      margin: 0 3px;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s, border 0.2s;
+
+      &.active {
+        background: #03a9f4;
+        border: 2px solid #0288d1;
+      }
+    }
+  }
+
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+
+    button {
+      font-size: 2rem;
+      color: #03a9f4;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 10px;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #0288d1;
+      }
+    }
+  }
+}
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-carousel',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './carousel.component.html',
+  styleUrls: ['./carousel.component.scss'],
+})
+export class CarouselComponent implements OnInit {
+  currentIndex = 0;
+  items: Array<{ title: string; description: string; image: string; buttonText: string }> = [];
+
+  ngOnInit(): void {
+    this.items = [
+      {
+        title: 'Card 1',
+        description: 'Description for Card 1',
+        image: 'path/to/image1.jpg',
+        buttonText: 'Ver más',
+      },
+      {
+        title: 'Card 2',
+        description: 'Description for Card 2',
+        image: 'path/to/image2.jpg',
+        buttonText: 'Ver más',
+      },
+      {
+        title: 'Card 3',
+        description: 'Description for Card 3',
+        image: 'path/to/image3.jpg',
+        buttonText: 'Ver más',
+      },
+    ];
+  }
+
+  next() {
+    this.currentIndex = (this.currentIndex + 1) % this.items.length;
+  }
+
+  prev() {
+    this.currentIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
+  }
+
+  goTo(index: number) {
+    this.currentIndex = index;
+  }
+
+  trackByIndex(index: number): number {
+    return index;
+  }
+}
+
+
+
+
+
+<section class="carousel" aria-label="Carrusel de tarjetas">
+  <header class="carousel-header">
+    <h2 class="carousel-title">Título del Carrusel</h2>
+    <p class="carousel-description">Descripción general del carrusel o sección.</p>
+  </header>
+  <div class="carousel-container">
+    @for (item of items; let i = $index; track i) {
+    <div
+      class="carousel-card"
+      [class.active]="i === currentIndex"
+      [attr.aria-hidden]="i !== currentIndex"
+      tabindex="-1"
+    >
+      <div class="image-container">
+        <img [src]="item.image" [alt]="item.title" />
+      </div>
+      <div class="card-content">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <button class="action-button">{{ item.buttonText }}</button>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="carousel-dots" role="tablist" aria-label="Indicadores de carrusel">
+    @for (item of items; let i = $index; track i) {
+    <button
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+      [attr.aria-label]="'Ir a la tarjeta ' + (i + 1)"
+      [attr.aria-selected]="i === currentIndex"
+      role="tab"
+      type="button"
+    ></button>
+    }
+  </div>
+
+  <div class="carousel-controls">
+    <button (click)="prev()" aria-label="Anterior" type="button">❮</button>
+    <button (click)="next()" aria-label="Siguiente" type="button">❯</button>
+  </div>
+</section>

@@ -3,7 +3,6 @@ package com.w_backend.demo.modules.category.application.input.use_case.create_ca
 import org.springframework.stereotype.Service;
 
 import com.w_backend.demo.modules.category.domain.models.Category;
-import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 
     @Override
-    public Category createCategory(CategoryRequest categoryRequest) {
+    public Category createCategory(CreateCategoryRequest createCategoryRequest) {
 
-        return new Category(categoryRequest.getName(), categoryRequest.getDescription());
+        return new Category(createCategoryRequest.getName(), createCategoryRequest.getDescription());
         // create the repo, maybe poostgress
     }
 

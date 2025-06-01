@@ -1,0 +1,48 @@
+<section class="carousel" aria-label="Carrusel de tarjetas">
+  <header class="carousel-header">
+    <h2 class="carousel-title">Título del Carrusel</h2>
+    <p class="carousel-description">Descripción general del carrusel o sección.</p>
+  </header>
+  <div class="carousel-container">
+    <div class="carousel-track">
+      @for (item of items; let i = $index; track i) {
+      <div
+        class="carousel-card"
+        [class.active]="i === currentIndex"
+        [style.transform]="'translateX(' + (i - currentIndex) * 30 + '%)'"
+        [style.opacity]="i - currentIndex > 1 || currentIndex - i > 1 ? 0 : 1"
+        [style.zIndex]="i === currentIndex ? 2 : 1"
+        [attr.aria-hidden]="i !== currentIndex"
+        tabindex="-1"
+      >
+        <div class="image-container">
+          <img [src]="item.image" [alt]="item.title" />
+        </div>
+        <div class="card-content">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+          <button class="action-button">{{ item.buttonText }}</button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="carousel-dots" role="tablist" aria-label="Indicadores de carrusel">
+    @for (item of items; let i = $index; track i) {
+    <button
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+      [attr.aria-label]="'Ir a la tarjeta ' + (i + 1)"
+      [attr.aria-selected]="i === currentIndex"
+      role="tab"
+      type="button"
+    ></button>
+    }
+  </div>
+
+  <div class="carousel-controls">
+    <button (click)="prev()" aria-label="Anterior" type="button">❮</button>
+    <button (click)="next()" aria-label="Siguiente" type="button">❯</button>
+  </div>
+</section>
