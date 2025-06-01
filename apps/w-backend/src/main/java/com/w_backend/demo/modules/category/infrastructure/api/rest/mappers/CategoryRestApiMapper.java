@@ -16,7 +16,7 @@ public interface CategoryRestApiMapper {
 
     // Map the domain model to the response
     CategoryResponse domainModelToCategoryResponse(Category category);
-    
+
     CreateCategoryRequest categoryResponseToCreateCategoryRequest(CategoryRequest categoryRequest);
 
 }

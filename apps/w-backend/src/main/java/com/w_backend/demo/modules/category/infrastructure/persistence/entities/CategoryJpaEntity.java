@@ -1,6 +1,5 @@
 package com.w_backend.demo.modules.category.infrastructure.persistence.entities;
 
-
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -24,7 +23,7 @@ public class CategoryJpaEntity {
     public static final String DESCRIPTION_COLUMN = "description";
 
     @Id
-    @Column(name = ID_COLUMN, nullable = false, unique = true)  
+    @Column(name = ID_COLUMN, nullable = false, unique = true)
     private UUID id;
 
     @Column(name = NAME_COLUMN, nullable = false)

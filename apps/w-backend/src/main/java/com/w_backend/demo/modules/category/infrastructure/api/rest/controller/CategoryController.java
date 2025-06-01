@@ -1,14 +1,10 @@
 package com.w_backend.demo.modules.category.infrastructure.api.rest.controller;
 
-
-import org.springframework.stereotype.Controller;
-
 import com.w_backend.demo.modules.category.application.input.use_case.create_category.CreateCategoryUseCase;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.mappers.CategoryRestApiMapper;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.response.CategoryResponse;
 import com.w_backend.demo.modules.category.domain.models.Category;
-
 
 import lombok.AllArgsConstructor;
 
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
 @RestController
 @RequestMapping("/category")
 @AllArgsConstructor
@@ -31,8 +26,9 @@ public class CategoryController {
     @PostMapping("/create")
     public CategoryResponse createCategory(@RequestBody CategoryRequest categoryRequest) {
 
-        Category category = createCategoryUseCase.createCategory(apiMapper.categoryResponseToCreateCategoryRequest(categoryRequest));
-       
+        Category category = createCategoryUseCase
+                .createCategory(apiMapper.categoryResponseToCreateCategoryRequest(categoryRequest));
+
         return apiMapper.domainModelToCategoryResponse(category);
     }
 
