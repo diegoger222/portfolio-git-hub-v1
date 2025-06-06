@@ -13,7 +13,12 @@
     "test": "pnpm nx test",
     "db:migrate-tm": "pnpm dotenv-flow -p apps/w-n-backend -- pnpm prisma migrate dev --schema=apps/w-n-backend/prisma/schema.prisma",
     "db:deploy-tm": "pnpm dotenv-flow -p apps/w-n-backend -- pnpm prisma migrate deploy --schema=apps/w-n-backend/prisma/schema.prisma",
-    "db:generate-tm": "pnpm dotenv-flow -p apps/w-n-backend -- pnpm prisma generate --schema=apps/w-n-backend/prisma/schema.prisma"
+    "db:generate-tm": "pnpm dotenv-flow -p apps/w-n-backend -- pnpm prisma generate --schema=apps/w-n-backend/prisma/schema.prisma",
+    "__coment__": "This is forstart kafka server",
+    "kafka:start": "docker-compose -f ./global/docker/docker-compose-kafka.yml up -d",
+    "kafka:stop": "docker-compose -f ./global/docker/docker-compose-kafka.yml down",
+    "w-backend:docker:start": "docker-compose -f ./apps/w-backend/docker-compose.yml up -d",
+    "w-backend:docker:stop": "docker stop w-backend"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +43,7 @@
     "nest-keycloak-connect": "^1.10.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
+    "swiper": "^11.2.8",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

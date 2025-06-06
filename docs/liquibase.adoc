@@ -1,0 +1,9 @@
+./mvnw liquibase:diff 
+
+./mvnw liquibase:diff \
+  -Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/V2__create_category_table.yaml
+
+  ./mvnw liquibase:update
+
+
+  ./mvnw liquibase:diff "-Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/V2__create_category_table.yaml"
