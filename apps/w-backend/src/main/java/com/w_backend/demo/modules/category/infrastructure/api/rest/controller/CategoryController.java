@@ -1,5 +1,6 @@
 package com.w_backend.demo.modules.category.infrastructure.api.rest.controller;
 
+import com.w_backend.demo.common.services.kafka.service.KafkaSender;
 import com.w_backend.demo.modules.category.application.input.use_case.create_category.CreateCategoryUseCase;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.mappers.CategoryRestApiMapper;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
@@ -21,6 +22,8 @@ public class CategoryController {
 
     private final CreateCategoryUseCase createCategoryUseCase;
 
+    private final KafkaSender kafkaSender;
+
     private static final CategoryRestApiMapper apiMapper = CategoryRestApiMapper.INSTANCE;
 
     @PostMapping("/create")
@@ -35,6 +38,11 @@ public class CategoryController {
     @GetMapping("/get")
     public String getMethodName() {
         return "patata";
+    }
+
+    @PostMapping("/kafka-test")
+    public void kafkaTest() {
+        kafkaSender.sendMessage("Hello Kafka Patatas", "topic-1");
     }
 
 }
