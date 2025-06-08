@@ -6,4 +6,58 @@
   ./mvnw liquibase:update
 
 
-  ./mvnw liquibase:diff "-Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/V2__create_category_table.yaml"
+// Genera un changelog de la base de datos actual
+./mvnw liquibase:generateChangeLog 
+
+
+
+
+
+
+
+./mvnw liquibase:diff
+
+
+  ./apps/w-backend/mvnw liquibase:diff
+ <propertyFile>src/main/resources/db/config/liquibase.properties</propertyFile>
+
+
+  			<plugin>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>4.32.0</version>
+			<configuration>
+				<changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
+				<outputChangeLogFile>src/main/resources/db/changelog/init_schema.sql</outputChangeLogFile>
+				<diffChangeLogFile>src/main/resources/db/changelog/diff.sql</diffChangeLogFile>
+
+				<url>jdbc:postgresql://localhost:5432/w-backend</url>
+				<username>user</username>
+				<password>password</password>
+				<driver>org.postgresql.Driver</driver>
+
+		
+				<referenceUrl>hibernate:spring:com.w_backend.demo?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
+			</configuration>
+			</plugin>
+
+
+
+      			<plugin>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>4.32.0</version>
+			<configuration>
+				 <propertyFile>src/main/resources/db/config/liquibase.properties</propertyFile>
+			</configuration>
+			</plugin>
+
+
+      changeLogFile=src/main/resources/db/changelog/changelog.xml
+url=jdbc:postgresql://localhost:5432/w-backend
+username=user
+password=password
+driver=org.postgresql.Driver
+outputChangeLogFile=src/main/resources/db/migration/V2__init_schema.sql
+referenceUrl=hibernate:spring:com.w_backend.demo.modules?dialect=org.hibernate.dialect.PostgreSQLDialect
+format=sql

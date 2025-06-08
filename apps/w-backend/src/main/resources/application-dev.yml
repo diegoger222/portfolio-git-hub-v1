@@ -5,6 +5,11 @@ spring:
     password: password
   kafka:
     bootstrap-servers: localhost:9092
+  flyway:
+    enabled: true # Habilita Flyway para la migración de base de datos
+    locations: classpath:db/migration # Ubicación de los scripts de migración
+    baseline-on-migrate: true # Permite que Flyway maneje esquemas existentes
+    baseline-version: 1
   jpa:
     hibernate:
       ddl-auto: update # Permite actualizaciones automáticas del esquema en desarrollo

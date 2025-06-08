@@ -5,10 +5,6 @@ spring:
   application:
     name: w-backend
 
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-
   profiles:
     active: dev # Cambia a 'test' o 'prod' según el entorno
 

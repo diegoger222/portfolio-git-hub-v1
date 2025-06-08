@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = CategoryJpaEntity.TABLE_NAME)
 public class CategoryJpaEntity {
     public static final String TABLE_NAME = "categories";
 
@@ -31,4 +33,7 @@ public class CategoryJpaEntity {
 
     @Column(name = DESCRIPTION_COLUMN)
     private String description;
+
+    @Column(name = "created_at", nullable = false)
+    private Long createdAt;
 }

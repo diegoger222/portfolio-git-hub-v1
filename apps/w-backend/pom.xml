@@ -31,7 +31,7 @@
 		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<spring-boot.version>3.4.3</spring-boot.version>
-		<liquibase.version>4.32.0</liquibase.version>
+		<flyway.version>11.9.0</flyway.version>
 	</properties>
 	<dependencies>
 
@@ -107,20 +107,19 @@
 			<artifactId>postgresql</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
 		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>${liquibase.version}</version>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
-			<groupId>org.liquibase.ext</groupId>
-			<artifactId>liquibase-hibernate6</artifactId>
-			<version>${liquibase.version}</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.3.232</version>
+			<scope>test</scope>
 		</dependency>
-
-
 
 		<!--  Kafka   -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka -->
@@ -156,22 +155,22 @@
 				</configuration>
 			</plugin>
 			<plugin>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>4.32.0</version>
-			<configuration>
-				<changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
-				<outputChangeLogFile>src/main/resources/db/changelog/V2__create_category_table.yaml</outputChangeLogFile>
-
-				<url>jdbc:postgresql://localhost:5432/w-backend</url>
-				<username>user</username>
-				<password>password</password>
-				<driver>org.postgresql.Driver</driver>
-
-				<!-- Paquete donde están tus entidades -->
-				<referenceUrl>hibernate:spring:com.w_backend.demo?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
-			</configuration>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>9.22.0</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/w-backend</url>
+					<user>user</user>
+					<password>password</password>
+					<baselineOnMigrate>true</baselineOnMigrate>
+					<locations>
+						<location>classpath:db/migration</location>
+					</locations>
+				</configuration>
 			</plugin>
+
+
+
 		</plugins>
 	</build>
 
