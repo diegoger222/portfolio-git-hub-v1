@@ -13,9 +13,9 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: none # update to local development this will let to hibernate the migrations, none for environments flyway migrations
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        '[format_sql]': true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
