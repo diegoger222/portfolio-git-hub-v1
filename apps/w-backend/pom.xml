@@ -31,7 +31,8 @@
 		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<spring-boot.version>3.4.3</spring-boot.version>
-		<flyway.version>11.9.0</flyway.version>
+		<flyway.version>11.8.2</flyway.version>
+		<postgresql.version> 42.7.5</postgresql.version>
 	</properties>
 	<dependencies>
 
@@ -105,11 +106,18 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
 			<version>${flyway.version}</version>
 		</dependency>
 
@@ -157,7 +165,7 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>9.22.0</version>
+				<version>${flyway.version}</version>
 				<configuration>
 					<url>jdbc:postgresql://localhost:5432/w-backend</url>
 					<user>user</user>
@@ -168,7 +176,7 @@
 					</locations>
 				</configuration>
 			</plugin>
-
+			
 
 
 		</plugins>
