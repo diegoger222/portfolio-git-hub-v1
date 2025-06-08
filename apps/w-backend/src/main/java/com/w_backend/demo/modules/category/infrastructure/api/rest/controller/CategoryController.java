@@ -2,6 +2,9 @@ package com.w_backend.demo.modules.category.infrastructure.api.rest.controller;
 
 import com.w_backend.demo.common.services.kafka.service.KafkaSender;
 import com.w_backend.demo.modules.category.application.input.use_case.create_category.CreateCategoryUseCase;
+import com.w_backend.demo.modules.category.application.input.use_case.delete_category_by_id.DeleteCategoryByIdUseCase;
+import com.w_backend.demo.modules.category.application.input.use_case.get_all_categories.GetAllCategoriesUseCase;
+import com.w_backend.demo.modules.category.application.input.use_case.get_category_by_id.GetCategoryByIdUseCase;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.mappers.CategoryRestApiMapper;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.response.CategoryResponse;
@@ -13,7 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/category")
@@ -21,6 +29,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CategoryController {
 
     private final CreateCategoryUseCase createCategoryUseCase;
+
+    private final GetCategoryByIdUseCase getCategoryByIdUseCase;
+
+    private final GetAllCategoriesUseCase getAllCategoriesUseCase;
+
+    private final DeleteCategoryByIdUseCase deleteCategoryUseCase;
 
     private final KafkaSender kafkaSender;
 
@@ -35,14 +49,33 @@ public class CategoryController {
         return apiMapper.domainModelToCategoryResponse(category);
     }
 
-    @GetMapping("/get")
-    public String getMethodName() {
-        return "patata";
+    @GetMapping("/{id}")
+    public CategoryResponse getCategoryById(@PathVariable UUID id) {
+        return apiMapper.domainModelToCategoryResponse(getCategoryByIdUseCase.getCategoryById(id));
+    }
+
+    // @RequestParam(required = false) String name THis is an example of how to use
+    @GetMapping("/all")
+    public CategoryResponse[] getAllCategories() {
+        return getAllCategoriesUseCase.getAllCategories()
+                .stream()
+                .map(apiMapper::domainModelToCategoryResponse)
+                .toArray(CategoryResponse[]::new);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCategoryById(@PathVariable UUID id) {
+        deleteCategoryUseCase.deleteCategoryById(id);
     }
 
     @PostMapping("/kafka-test")
     public void kafkaTest() {
         kafkaSender.sendMessage("Hello Kafka Patatas", "topic-1");
+    }
+
+    @GetMapping("/get")
+    public String getMethodName() {
+        return "patata";
     }
 
 }
