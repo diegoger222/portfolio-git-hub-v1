@@ -13,7 +13,7 @@ public class Category {
     private String description;
 
     public Category(String name, String description) {
-        this.id = UUID.randomUUID();
+        // this.id = UUID.randomUUID(); let the database handle the ID generation
         this.name = name;
         this.description = description;
     }

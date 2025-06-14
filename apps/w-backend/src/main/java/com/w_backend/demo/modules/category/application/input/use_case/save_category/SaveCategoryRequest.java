@@ -1,4 +1,4 @@
-package com.w_backend.demo.modules.category.application.input.use_case.create_category;
+package com.w_backend.demo.modules.category.application.input.use_case.save_category;
 
 import java.util.UUID;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class CreateCategoryRequest {
+public class SaveCategoryRequest {
     private UUID id;
     private String name;
     private String description;

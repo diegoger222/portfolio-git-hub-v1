@@ -1,12 +1,13 @@
 package com.w_backend.demo.modules.category.infrastructure.api.rest.controller;
 
 import com.w_backend.demo.common.services.kafka.service.KafkaSender;
-import com.w_backend.demo.modules.category.application.input.use_case.create_category.CreateCategoryUseCase;
 import com.w_backend.demo.modules.category.application.input.use_case.delete_category_by_id.DeleteCategoryByIdUseCase;
 import com.w_backend.demo.modules.category.application.input.use_case.get_all_categories.GetAllCategoriesUseCase;
 import com.w_backend.demo.modules.category.application.input.use_case.get_category_by_id.GetCategoryByIdUseCase;
+import com.w_backend.demo.modules.category.application.input.use_case.save_category.SaveCategoryUseCase;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.mappers.CategoryRestApiMapper;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
+import com.w_backend.demo.modules.category.infrastructure.api.rest.request.UpdateCategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.response.CategoryResponse;
 import com.w_backend.demo.modules.category.domain.models.Category;
 
@@ -22,13 +23,14 @@ import java.util.UUID;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/category")
 @AllArgsConstructor
 public class CategoryController {
 
-    private final CreateCategoryUseCase createCategoryUseCase;
+    private final SaveCategoryUseCase saveCategoryUseCase;
 
     private final GetCategoryByIdUseCase getCategoryByIdUseCase;
 
@@ -42,9 +44,8 @@ public class CategoryController {
 
     @PostMapping("/create")
     public CategoryResponse createCategory(@RequestBody CategoryRequest categoryRequest) {
-
-        Category category = createCategoryUseCase
-                .createCategory(apiMapper.categoryResponseToCreateCategoryRequest(categoryRequest));
+        Category category = saveCategoryUseCase
+                .saveCategory(apiMapper.categoryResponseToCreateCategoryRequest(categoryRequest));
 
         return apiMapper.domainModelToCategoryResponse(category);
     }
@@ -66,6 +67,15 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteCategoryById(@PathVariable UUID id) {
         deleteCategoryUseCase.deleteCategoryById(id);
+    }
+
+    @PutMapping("/{id}")
+    public CategoryResponse putMethodName(@PathVariable UUID id, @RequestBody UpdateCategoryRequest entity) {
+
+        Category category = saveCategoryUseCase.saveCategory(
+                apiMapper.updateCategoryRequestToSaveCategoryRequest(id, entity));
+
+        return apiMapper.domainModelToCategoryResponse(category);
     }
 
     @PostMapping("/kafka-test")
