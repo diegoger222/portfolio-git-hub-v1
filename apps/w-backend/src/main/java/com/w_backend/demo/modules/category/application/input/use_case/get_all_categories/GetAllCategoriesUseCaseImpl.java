@@ -2,8 +2,11 @@ package com.w_backend.demo.modules.category.application.input.use_case.get_all_c
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.w_backend.demo.common.exceptions.custom_errors.errors.CreateException;
+import com.w_backend.demo.common.exceptions.custom_errors.errors_code.CodesErrors;
 import com.w_backend.demo.modules.category.application.output.CategoriesRepository;
 import com.w_backend.demo.modules.category.domain.models.Category;
 
@@ -17,7 +20,9 @@ public class GetAllCategoriesUseCaseImpl implements GetAllCategoriesUseCase {
 
     @Override
     public List<Category> getAllCategories() {
-        return categoriesRepository.findAll();
+
+        throw new CreateException(CodesErrors.CATEGORY_ALREADY_EXISTS, HttpStatus.BAD_REQUEST);
+        // return categoriesRepository.findAll();
     }
 
 }
