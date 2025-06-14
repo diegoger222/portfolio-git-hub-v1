@@ -1,0 +1,30 @@
+
+
+## W-Backend
+
+w-backend is a project where I do test with java and spring boot.
+
+### Technologies
+- Java
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL
+- Docker
+- Kafka
+- Flyway
+
+
+### Architecture
+
+DDD (Domain Driven Design) is used in this project. The architecture is divided into several layers:
+- **Domain Layer**: Contains the business logic and domain entities.
+- **Application Layer**: Contains the application services that orchestrate the domain logic.
+- **Infrastructure Layer**: Contains the implementation details such as database access, messaging, etc.
+
+
+### TODO
+- [ ] Add Exception Handling
+- [ ] Add security
+- [ ] Add more tests
+- [ ] Add more documentation
+- [ ] Add more features

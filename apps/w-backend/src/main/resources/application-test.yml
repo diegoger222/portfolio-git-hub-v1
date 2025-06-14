@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/miapp_test
+    username: test_user
+    password: test_password
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Crea y elimina la BD al iniciar/finalizar pruebas

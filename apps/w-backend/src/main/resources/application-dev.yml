@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/w-backend
+    username: user
+    password: password
+  kafka:
+    bootstrap-servers: localhost:9092
+  flyway:
+    enabled: true # Habilita Flyway para la migración de base de datos
+    locations: classpath:db/migration # Ubicación de los scripts de migración
+    baseline-on-migrate: true # Permite que Flyway maneje esquemas existentes
+    baseline-description: 'init_schema' # Descripción de la versión base
+    baseline-version: 0
+  jpa:
+    hibernate:
+      ddl-auto: update # Permite actualizaciones automáticas del esquema en desarrollo

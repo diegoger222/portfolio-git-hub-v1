@@ -71,6 +71,9 @@ importers:
       rxjs:
         specifier: ^7.8.0
         version: 7.8.1
+      swiper:
+        specifier: ^11.2.8
+        version: 11.2.8
       zone.js:
         specifier: ~0.15.0
         version: 0.15.0
@@ -3735,8 +3738,8 @@ packages:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
 
-  chromedriver@135.0.2:
-    resolution: {integrity: sha512-/X3VecpIhFFRW/TazgsA/S9RVIcBaMJ6zkZ8Gf8PGn4prB1A/S0JFdgxALjXnbqyjxCi45JUl+5q4rVY65pvQA==}
+  chromedriver@137.0.0:
+    resolution: {integrity: sha512-RyyIQOXaDfCc0IZrGx9EpNYCepvJca+fvreJqFgNaWBLIzLj5UInn85mWMecborYCBMtRhMZuxwNuzNXgoCIFg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7416,6 +7419,10 @@ packages:
     resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
+
+  swiper@11.2.8:
+    resolution: {integrity: sha512-S5FVf6zWynPWooi7pJ7lZhSUe2snTzqLuUzbd5h5PHUOhzgvW0bLKBd2wv0ixn6/5o9vwc/IkQT74CRcLJQzeg==}
+    engines: {node: '>= 4.7.0'}
 
   symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
@@ -13605,7 +13612,7 @@ snapshots:
 
   chrome-trace-event@1.0.4: {}
 
-  chromedriver@135.0.2:
+  chromedriver@137.0.0:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.8.3
@@ -15724,7 +15731,7 @@ snapshots:
     dependencies:
       jwk-to-pem: 2.0.7
     optionalDependencies:
-      chromedriver: 135.0.2
+      chromedriver: 137.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -17818,6 +17825,8 @@ snapshots:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.1.1
+
+  swiper@11.2.8: {}
 
   symbol-observable@4.0.0: {}
 

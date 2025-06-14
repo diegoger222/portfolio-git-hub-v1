@@ -1,0 +1,12 @@
+flyway:info — muestra qué migraciones ya se aplicaron
+
+flyway:clean — limpia la base de datos (¡ojo! elimina todo)
+
+flyway:validate
+
+
+
+./mvnw flyway:baseline
+
+
+./mvnw flyway:migrate
