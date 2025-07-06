@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.w_backend.demo.common.exceptions.custom_errors.errors.CustomException;
-import com.w_backend.demo.common.utils.AnsiColor;
 
 import lombok.extern.slf4j.Slf4j;
 
