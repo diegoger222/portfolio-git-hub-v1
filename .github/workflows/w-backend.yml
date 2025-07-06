@@ -21,9 +21,13 @@ jobs:
       - name: actions
         run: echo "Estas en Actions"
 
-      - name: Usar Variables:
+      - name: Usar Variables
         run: |
-          echo "Test: ${{ secrets.TEST }}"
+          echo "Test: ${{ vars.TEST }}"
+
+      - name: Usar Secret
+        run: |
+          echo "Test: ${{ secrets.TEST_S }}"
 
       - name: Configurar Java
         uses: actions/setup-java@v3
