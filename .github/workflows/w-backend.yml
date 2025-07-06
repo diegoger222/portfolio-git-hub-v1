@@ -1,0 +1,52 @@
+name: CI - w-backend (Spring Boot)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['**']
+
+jobs:
+  w-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Instalar Node.js (para usar Nx)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias del monorepo
+        run: npm ci
+
+      - name: Determinar si 'w-backend' fue afectado
+        id: check_backend
+        run: |
+          AFFECTED=$(npx nx show projects --affected --base=origin/main --head=HEAD)
+          echo "AFFECTED: $AFFECTED"
+          if echo "$AFFECTED" | grep -qw w-backend; then
+            echo "w-backend IS affected"
+            echo "affected=true" >> $GITHUB_OUTPUT
+          else
+            echo "w-backend NOT affected"
+            echo "affected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build w-backend
+        if: steps.check_backend.outputs.affected == 'true'
+        working-directory: apps/w-backend
+        run: mvn clean install
+
+      - name: Test w-backend
+        if: steps.check_backend.outputs.affected == 'true'
+        working-directory: apps/w-backend
+        run: mvn test

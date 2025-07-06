@@ -1,0 +1,1 @@
+pnpm nx show projects --affected --base=origin/develop  --head=HEAD
