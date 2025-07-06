@@ -95,11 +95,9 @@ jobs:
       #          fi
 
       - name: Build w-backend
-        if: steps.check_backend.outputs.affected == 'true'
         working-directory: apps/w-backend
         run: mvn clean install
 
       - name: Test w-backend
-        if: steps.check_backend.outputs.affected == 'true'
         working-directory: apps/w-backend
         run: mvn test
