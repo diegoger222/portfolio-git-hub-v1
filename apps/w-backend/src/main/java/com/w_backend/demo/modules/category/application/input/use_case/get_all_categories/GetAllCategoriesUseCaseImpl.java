@@ -17,6 +17,7 @@ public class GetAllCategoriesUseCaseImpl implements GetAllCategoriesUseCase {
 
     @Override
     public List<Category> getAllCategories() {
+
         return categoriesRepository.findAll();
     }
 
