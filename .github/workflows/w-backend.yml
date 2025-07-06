@@ -31,8 +31,9 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install
 
-      - name: Fetch all branches and history
-        run: git fetch --prune --unshallow --no-tags --depth=0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Determinar si 'w-backend' fue afectado
         id: check_backend
