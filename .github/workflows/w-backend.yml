@@ -39,7 +39,7 @@ jobs:
         id: check_backend
         run: |
           set -x
-          AFFECTED=$(pnpm nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
+          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
           echo "AFFECTED: $AFFECTED"
           if echo "$AFFECTED" | grep -qw w-backend; then
             echo "w-backend IS affected"
