@@ -34,7 +34,7 @@ jobs:
       - name: Determinar si 'w-backend' fue afectado
         id: check_backend
         run: |
-          AFFECTED=$(npx nx show projects --affected --base=origin/main --head=HEAD)
+          AFFECTED=$(npx nx show projects --affected --base=${{ steps.nx-base-head.outputs.base }} --head=HEAD)
           echo "AFFECTED: $AFFECTED"
           if echo "$AFFECTED" | grep -qw w-backend; then
             echo "w-backend IS affected"
