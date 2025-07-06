@@ -30,11 +30,22 @@ jobs:
         run: |
           echo "Test: ${{ secrets.TEST_S }}"
 
+      - name: Instalar Node.js (para usar Nx)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Instalar PNPM
+        run: npm install -g pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install
+
       - name: Detectar si w-backend fue afectado
         id: check
         run: |
           set -x
-          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
+          AFFECTED=$( nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
           echo "Affected projects: $AFFECTED"
           if echo "$AFFECTED" | grep -qw w-backend; then
             echo "affected_w_backend=true" >> $GITHUB_OUTPUT
