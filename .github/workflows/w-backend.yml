@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Checkout código
         uses: actions/checkout@v3
 
@@ -30,10 +34,6 @@ jobs:
 
       - name: Instalar dependencias
         run: pnpm install
-
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Determinar si 'w-backend' fue afectado
         id: check_backend
