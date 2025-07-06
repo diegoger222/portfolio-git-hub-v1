@@ -23,10 +23,13 @@ jobs:
       - name: Instalar Node.js (para usar Nx)
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22'
 
-      - name: Instalar dependencias del monorepo
-        run: npm ci
+      - name: Instalar PNPM
+        run: npm install -g pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install
 
       - name: Determinar si 'w-backend' fue afectado
         id: check_backend
