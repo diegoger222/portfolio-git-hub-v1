@@ -7,9 +7,10 @@ on:
     branches: ['**']
 
 jobs:
-  w-backend:
+  check:
     runs-on: ubuntu-latest
-
+    outputs:
+      w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -29,6 +30,27 @@ jobs:
         run: |
           echo "Test: ${{ secrets.TEST_S }}"
 
+      - name: Detectar si w-backend fue afectado
+        id: check
+        run: |
+          set -x
+          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
+          echo "Affected projects: $AFFECTED"
+          if echo "$AFFECTED" | grep -qw w-backend; then
+            echo "affected_w_backend=true" >> $GITHUB_OUTPUT
+          else
+            echo "affected_w_backend=false" >> $GITHUB_OUTPUT
+          fi
+
+  w-backend:
+    needs: check
+    runs-on: ubuntu-latest
+    if: needs.check.outputs.w_backend_affected == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Configurar Java
         uses: actions/setup-java@v3
         with:
@@ -46,19 +68,20 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install
 
-      - name: Determinar si 'w-backend' fue afectado
-        id: check_backend
-        run: |
-          set -x
-          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
-          echo "AFFECTED: $AFFECTED"
-          if echo "$AFFECTED" | grep -qw w-backend; then
-            echo "w-backend IS affected"
-            echo "affected=true" >> $GITHUB_OUTPUT
-          else
-            echo "w-backend NOT affected"
-            echo "affected=false" >> $GITHUB_OUTPUT
-          fi
+      #
+      #      - name: Determinar si 'w-backend' fue afectado
+      #        id: check_backend
+      #        run: |
+      #          set -x
+      #          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
+      #          echo "AFFECTED: $AFFECTED"
+      #          if echo "$AFFECTED" | grep -qw w-backend; then
+      #            echo "w-backend IS affected"
+      #            echo "affected=true" >> $GITHUB_OUTPUT
+      #          else
+      #            echo "w-backend NOT affected"
+      #            echo "affected=false" >> $GITHUB_OUTPUT
+      #          fi
 
       - name: Build w-backend
         if: steps.check_backend.outputs.affected == 'true'
