@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
+
     steps:
       - uses: actions/checkout@v3
         with:
