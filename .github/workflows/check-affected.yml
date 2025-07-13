@@ -2,6 +2,10 @@ name: Check Affected Projects
 
 on:
   workflow_call:
+    outputs:
+      w_backend_affected:
+        description: 'Si w-backend fue afectado'
+        value: ${{ jobs.check.outputs.w_backend_affected }}
 
 jobs:
   check:
