@@ -5,3 +5,8 @@ on:
     branches: [main, develop]
   pull_request:
     branches: ['**']
+
+jobs:
+  check-affected:
+    uses: ./.github/workflows/check-affected.yml
+    secrets: inherit
