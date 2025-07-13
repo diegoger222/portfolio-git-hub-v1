@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/w-backend.yml
     secrets: inherit
 
-    print-check:
+  print-check:
     needs: check-affected
     runs-on: ubuntu-latest
     steps:
