@@ -1,103 +1,31 @@
-name: CI - w-backend (Spring Boot)
+name: w-backend (Spring Boot)
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: ['**']
+  workflow_call:
+    outputs:
+      w_backend_affected:
+        description: 'If w-backend was affected'
+        required: true
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    outputs:
-      w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Checkout código
-        uses: actions/checkout@v3
-
-      - name: actions
-        run: echo "Estas en Actions"
-
-      - name: Usar Variables
-        run: |
-          echo "Test: ${{ vars.TEST }}"
-
-      - name: Usar Secret
-        run: |
-          echo "Test: ${{ secrets.TEST_S }}"
-
-      - name: Instalar Node.js (para usar Nx)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
-      - name: Instalar PNPM
-        run: npm install -g pnpm
-
-      - name: Instalar dependencias
-        run: pnpm install
-
-      - name: Detectar si w-backend fue afectado
-        id: check
-        run: |
-          set -x
-          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
-          echo "Affected projects: $AFFECTED"
-          if echo "$AFFECTED" | grep -qw w-backend; then
-            echo "affected_w_backend=true" >> $GITHUB_OUTPUT
-          else
-            echo "affected_w_backend=false" >> $GITHUB_OUTPUT
-          fi
-
   w-backend:
-    needs: check
+    if: ${{ inputs.w_backend_affected == 'true' }}
     runs-on: ubuntu-latest
-    if: needs.check.outputs.w_backend_affected == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Configurar Java
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Instalar Node.js (para usar Nx)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
-      - name: Instalar PNPM
-        run: npm install -g pnpm
-
-      - name: Instalar dependencias
-        run: pnpm install
-
-      #
-      #      - name: Determinar si 'w-backend' fue afectado
-      #        id: check_backend
-      #        run: |
-      #          set -x
-      #          AFFECTED=$(npx nx show projects --affected --base=${{ github.event.pull_request.base.sha }} --head=HEAD)
-      #          echo "AFFECTED: $AFFECTED"
-      #          if echo "$AFFECTED" | grep -qw w-backend; then
-      #            echo "w-backend IS affected"
-      #            echo "affected=true" >> $GITHUB_OUTPUT
-      #          else
-      #            echo "w-backend NOT affected"
-      #            echo "affected=false" >> $GITHUB_OUTPUT
-      #          fi
-
       - name: Build w-backend
         working-directory: apps/w-backend
         run: mvn clean install
 
-      - name: Test w-backend
+      - name: Run tests
         working-directory: apps/w-backend
         run: mvn test
