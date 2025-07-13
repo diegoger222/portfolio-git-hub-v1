@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
 
   w-backend:
-    needs: check-affected
+    needs: check
     if: needs.check.outputs.w_backend_affected == 'true'
     uses: ./.github/workflows/w-backend.yml
     secrets: inherit
