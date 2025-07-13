@@ -9,7 +9,7 @@ on:
 
 jobs:
   w-backend:
-    if: ${{ inputs.w_backend_affected == 'true' }}
+    # if: ${{ inputs.w_backend_affected == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
