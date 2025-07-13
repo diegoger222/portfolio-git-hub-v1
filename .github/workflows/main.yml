@@ -10,3 +10,9 @@ jobs:
   check-affected:
     uses: ./.github/workflows/check-affected.yml
     secrets: inherit
+
+  w-backend:
+    needs: check-affected
+    if: needs.check-affected.outputs.w_backend_affected == 'true'
+    uses: ./.github/workflows/w-backend.yml
+    secrets: inherit
