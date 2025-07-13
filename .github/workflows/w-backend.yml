@@ -2,10 +2,10 @@ name: w-backend (Spring Boot)
 
 on:
   workflow_call:
-    outputs:
-      w_backend_affected:
-        description: 'If w-backend was affected'
-        required: true
+#    outputs:
+#      w_backend_affected:
+#        description: 'If w-backend was affected'
+#        required: true
 
 jobs:
   w-backend:
