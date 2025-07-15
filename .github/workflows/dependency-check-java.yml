@@ -19,9 +19,11 @@ jobs:
   dependency-check:
     name: Audit Java (OWASP Dependency-Check)
     runs-on: ubuntu-latest
-    uses: dependency-check/Dependency-Check_Action@v3
-    with:
-      project: '${{ inputs.project_name }}'
-      scan: './apps/${{ inputs.project_name }}'
-      format: 'HTML'
-      out: 'reports'
+    steps:
+      - name: Checkout code
+        uses: dependency-check/Dependency-Check_Action@v3
+        with:
+          project: '${{ inputs.project_name }}'
+          scan: './apps/${{ inputs.project_name }}'
+          format: 'HTML'
+          out: 'reports'
