@@ -49,7 +49,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
       - name: Build
+        working-directory: apps/${{ inputs.project_name }}
         run: mvn clean install -DskipTests
       - name: Perform CodeQL Analysis
-        working-directory: apps/${{ inputs.project_name }}
         uses: github/codeql-action/analyze@v3
