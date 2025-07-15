@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: ['**']
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   check-affected:
     uses: ./.github/workflows/check-affected.yml
