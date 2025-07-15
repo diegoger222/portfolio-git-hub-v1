@@ -16,10 +16,9 @@ on:
         # default: 'w-backend'
 
 jobs:
-  build:
-    name: check dependencies
-    runs-on: ubuntu-latest
+  dependency-check:
     name: Audit Java (OWASP Dependency-Check)
+    runs-on: ubuntu-latest
     uses: dependency-check/Dependency-Check_Action@v3
     with:
       project: '${{ inputs.project_name }}'
