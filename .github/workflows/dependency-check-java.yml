@@ -20,6 +20,10 @@ jobs:
     name: Audit Java (OWASP Dependency-Check)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Checkout code
         uses: dependency-check/Dependency-Check_Action@v3
         with:
