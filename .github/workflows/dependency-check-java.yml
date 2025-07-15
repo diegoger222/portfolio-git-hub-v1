@@ -48,8 +48,16 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
       - name: Build
         working-directory: apps/${{ inputs.project_name }}
         run: mvn clean install -DskipTests
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+
+      - name: Upload SARIF results (debug)
+        uses: actions/upload-artifact@v3
+        with:
+          name: codeql-sarif
+          path: /home/runner/work/_temp/codeql_databases/java/results/*.sarif
