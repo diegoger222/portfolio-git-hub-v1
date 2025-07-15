@@ -22,3 +22,11 @@ jobs:
     if: needs.check-affected.outputs.w_backend_affected == 'true'
     uses: ./.github/workflows/w-backend.yml
     secrets: inherit
+
+  dependency_check:
+    needs: w-backend
+    uses: ./.github/workflows/dependency-check-java.yml
+    with:
+      java_version: 17
+      project_name: w-backend
+    secrets: inherit
