@@ -1,5 +1,5 @@
 export enum CustomExceptionCode {
-  CREATE_ERROR_CODE = 401,
+  CREATE_ERROR_CODE = 401, // we can't just use 001
   UPDATE_ERROR_CODE = 402,
   DELETE_ERROR_CODE = 403,
   NOT_FOUND_ERROR_CODE = 404,

@@ -1,0 +1,3 @@
+pnpm nx show projects --affected --base=origin/develop  --head=HEAD
+
+pnpm exec nx run w-backend:test 

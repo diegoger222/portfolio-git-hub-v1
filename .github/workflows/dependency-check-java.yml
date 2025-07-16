@@ -1,0 +1,63 @@
+name: Dependency Check Java
+
+on:
+  workflow_call:
+    inputs:
+      java_version:
+        description: 'Java version to use'
+        type: number
+        required: true
+        default: 17
+
+      project_name:
+        description: 'Name of the project for SonarQube analysis'
+        type: string
+        required: true
+        # default: 'w-backend'
+
+jobs:
+  # dependency-check:
+  #   name: Audit Java (OWASP Dependency-Check)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #    - uses: actions/checkout@v3
+  #     with:
+  #        fetch-depth: 0
+  #      - name: Checkout code
+  #        uses: dependency-check/Dependency-Check_Action@v2
+  #        with:
+  #          project: '${{ inputs.project_name }}'
+  #          scan: './apps/${{ inputs.project_name }}'
+  #          format: 'HTML'
+  #          out: 'reports'
+
+  codeql-analysis:
+    name: Analyze (CodeQL)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['java']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Build
+        working-directory: apps/${{ inputs.project_name }}
+        run: mvn clean install -DskipTests
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Upload SARIF results (debug)
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif
+          path: '**/*.sarif' # /home/runner/work/_temp/codeql_databases/java/results/*.sarif

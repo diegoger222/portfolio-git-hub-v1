@@ -1,0 +1,29 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: ['**']
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  check-affected:
+    uses: ./.github/workflows/check-affected.yml
+    secrets: inherit
+
+  print-check:
+    needs: check-affected
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "¿W-Backend afectado? ${{ needs.check-affected.outputs.w_backend_affected }}"
+
+  w-backend:
+    needs: check-affected
+    if: needs.check-affected.outputs.w_backend_affected == 'true'
+    uses: ./.github/workflows/w-backend.yml
+    secrets: inherit

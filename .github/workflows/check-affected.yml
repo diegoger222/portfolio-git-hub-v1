@@ -1,0 +1,43 @@
+name: Check Affected Projects
+
+on:
+  workflow_call:
+    outputs:
+      w_backend_affected:
+        description: 'Si w-backend fue afectado'
+        value: ${{ jobs.check.outputs.w_backend_affected }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node & PNPM
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Instalar PNPM
+        run: npm install -g pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install
+
+      - name: Detectar si w-backend fue afectado
+        id: check
+        run: |
+          set -x
+          BASE=${{ github.event.pull_request.base.sha || 'origin/main' }}
+          AFFECTED=$(npx nx show projects --affected --base=$BASE --head=HEAD)
+          echo "Affected projects: $AFFECTED"
+          if echo "$AFFECTED" | grep -qw w-backend; then
+            echo "affected_w_backend=true" >> $GITHUB_OUTPUT
+          else
+            echo "affected_w_backend=false" >> $GITHUB_OUTPUT
+          fi

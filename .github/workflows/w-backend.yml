@@ -1,0 +1,67 @@
+name: w-backend (Spring Boot)
+
+on:
+  workflow_call:
+#    outputs:
+#      w_backend_affected:
+#        description: 'If w-backend was affected'
+#        required: true
+
+jobs:
+  w-backend:
+    # if: ${{ inputs.w_backend_affected == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build w-backend
+        working-directory: apps/w-backend
+        run: mvn clean install
+
+      - name: Run tests
+        working-directory: apps/w-backend
+        run: mvn test
+
+  sonar_analysis:
+    needs: w-backend
+    uses: ./.github/workflows/sonar-java.yml
+    with:
+      java_version: 17
+      project_name: w-backend
+    secrets: inherit
+
+  # dependency_check:
+  #   needs: w-backend
+  #   uses: ./.github/workflows/dependency-check-java.yml
+  #   with:
+  #     java_version: 17
+  #     project_name: w-backend
+  #   secrets:
+  #     inherit
+
+  # sonarcloud.io analysis
+#      - name: Cache SonarQube packages
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
+#      - name: Cache Maven packages
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: ${{ runner.os }}-m2
+#      - name: Build and analyze
+#        working-directory: apps/w-backend
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=diegoger222_portfolio-git-hub-v1_w-backend
