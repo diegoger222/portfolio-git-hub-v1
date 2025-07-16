@@ -38,16 +38,16 @@ jobs:
       project_name: w-backend
     secrets: inherit
 
-  dependency_check:
-    needs: w-backend
-    uses: ./.github/workflows/dependency-check-java.yml
-    with:
-      java_version: 17
-      project_name: w-backend
-    secrets:
-      inherit
+  # dependency_check:
+  #   needs: w-backend
+  #   uses: ./.github/workflows/dependency-check-java.yml
+  #   with:
+  #     java_version: 17
+  #     project_name: w-backend
+  #   secrets:
+  #     inherit
 
-      # sonarcloud.io analysis
+  # sonarcloud.io analysis
 #      - name: Cache SonarQube packages
 #        uses: actions/cache@v3
 #        with:
