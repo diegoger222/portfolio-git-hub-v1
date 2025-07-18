@@ -25,6 +25,6 @@ jobs:
 
   w-backend:
     needs: check-affected
-    if: needs.check-affected.outputs.w_backend_affected == 'true'
+    if: needs.check-affected.outputs.affected_projects contains 'w-backend'
     uses: ./.github/workflows/w-backend.yml
     secrets: inherit

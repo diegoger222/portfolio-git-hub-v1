@@ -3,16 +3,16 @@ name: Check Affected Projects
 on:
   workflow_call:
     outputs:
-      w_backend_affected:
+      affected_projects:
         description: 'Si w-backend fue afectado'
-        value: ${{ jobs.check.outputs.w_backend_affected }}
+        value: ${{ jobs.check.outputs.affected_projects }}
 
 jobs:
   check:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     outputs:
-      w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
+      affected_projects: ${{ steps.affected.outputs.affected_projects }}
 
     steps:
       - uses: actions/checkout@v3
@@ -30,15 +30,23 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install
 
-      - name: Detectar si w-backend fue afectado
-        id: check
+      - name: Detectar proyectos afectados (PR o Push)
+        id: affected
         run: |
-          set -x
-          BASE=${{ github.event.pull_request.base.sha || 'origin/main' }}
-          AFFECTED=$(npx nx show projects --affected --base=$BASE --head=HEAD)
-          echo "Affected projects: $AFFECTED"
-          if echo "$AFFECTED" | grep -qw w-backend; then
-            echo "affected_w_backend=true" >> $GITHUB_OUTPUT
+          set -e
+
+          git fetch origin develop --depth=1
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
           else
-            echo "affected_w_backend=false" >> $GITHUB_OUTPUT
+            BASE_SHA=$(git merge-base HEAD origin/develop)
           fi
+
+          echo "Usando base SHA: $BASE_SHA"
+          AFFECTED=$(npx nx show projects --affected --base=$BASE_SHA --head=HEAD)
+
+          echo "Affected projects:"
+          echo "$AFFECTED"
+
+          echo "affected_projects=$AFFECTED" >> $GITHUB_OUTPUT
