@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   check-affected:
+    if: github.actor != 'dependabot[bot]'
     uses: ./.github/workflows/check-affected.yml
     secrets: inherit
 

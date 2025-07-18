@@ -9,6 +9,7 @@ on:
 
 jobs:
   check:
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     outputs:
       w_backend_affected: ${{ steps.check.outputs.affected_w_backend }}
