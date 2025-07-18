@@ -10,7 +10,7 @@ public class WBackendApplication {
 	public static final String TEST_PROFILE = "test";
 	public static final String DEFAULT_PROFILE = DEV_PROFILE;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { // a
 		SpringApplication.run(WBackendApplication.class, args);
 
 	}
