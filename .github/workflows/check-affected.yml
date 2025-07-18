@@ -44,7 +44,16 @@ jobs:
           fi
 
           echo "Usando base SHA: $BASE_SHA"
+
+          set +e
           AFFECTED=$(npx nx show projects --affected --base=$BASE_SHA --head=HEAD)
+          STATUS=$?
+          set -e
+
+          if [ $STATUS -ne 0 ]; then
+            echo "No se detectaron proyectos afectados o Nx falló."
+            AFFECTED=""
+          fi
 
           echo "Affected projects:"
           echo "$AFFECTED"
