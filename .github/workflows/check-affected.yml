@@ -49,4 +49,5 @@ jobs:
           echo "Affected projects:"
           echo "$AFFECTED"
 
-          echo "affected_projects=$AFFECTED" >> $GITHUB_OUTPUT
+          json_array=$(echo "$AFFECTED" | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "affected_projects=$json_array" >> $GITHUB_OUTPUT
