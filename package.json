@@ -64,7 +64,7 @@
     "@nx/node": "^20.5.0",
     "@nx/plugin": "20.5.0",
     "@nx/web": "20.6.0",
-    "@nx/webpack": "20.5.0",
+    "@nx/webpack": "21.3.0",
     "@nxrocks/nx-spring-boot": "^10.2.6",
     "@schematics/angular": "^19.2.3",
     "@swc-node/register": "~1.9.1",
