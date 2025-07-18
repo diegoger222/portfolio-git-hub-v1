@@ -17,14 +17,8 @@ jobs:
     uses: ./.github/workflows/check-affected.yml
     secrets: inherit
 
-  print-check:
-    needs: check-affected
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "¿W-Backend afectado? ${{ needs.check-affected.outputs.w_backend_affected }}"
-
   w-backend:
     needs: check-affected
-    if: needs.check-affected.outputs.w_backend_affected == 'true'
+    if: contains(fromJson(needs.check-affected.outputs.affected_projects), 'w-backend')
     uses: ./.github/workflows/w-backend.yml
     secrets: inherit
