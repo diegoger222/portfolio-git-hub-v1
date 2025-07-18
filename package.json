@@ -66,7 +66,7 @@
     "@nx/web": "20.6.0",
     "@nx/webpack": "21.3.0",
     "@nxrocks/nx-spring-boot": "^10.2.6",
-    "@schematics/angular": "^19.2.3",
+    "@schematics/angular": "10.2.3",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.3.12",
     "@swc/core": "~1.11.18",
@@ -92,5 +92,20 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.19.0",
     "webpack-cli": "^5.1.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@parcel/watcher",
+      "@prisma/client",
+      "@prisma/engines",
+      "@swc/core",
+      "chromedriver",
+      "esbuild",
+      "lmdb",
+      "msgpackr-extract",
+      "nx",
+      "prisma"
+    ]
   }
 }
