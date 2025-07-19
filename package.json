@@ -52,7 +52,7 @@
     "@angular-devkit/schematics": "~19.2.0",
     "@angular/cli": "~19.2.0",
     "@angular/compiler-cli": "~19.2.0",
-    "@angular/language-service": "~19.2.0",
+    "@angular/language-service": "~20.1.2",
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^11.0.5",
     "@nestjs/testing": "^10.0.2",
