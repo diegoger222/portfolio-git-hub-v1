@@ -76,7 +76,7 @@
     "@typescript-eslint/utils": "^8.19.0",
     "angular-eslint": "^19.2.0",
     "eslint": "^9.31.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "inflection": "^3.0.2",
     "jest": "^30.0.4",
     "jest-environment-jsdom": "^29.7.0",
