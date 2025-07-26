@@ -36,9 +36,9 @@
 		<sonar.organization>diegoger222</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
-		<!-- Sonar Coverage Exclusions
+		<!-- Sonar Coverage Exclusions -->
 		<sonar.coverage.exclusions>**/config/**,**/test/**</sonar.coverage.exclusions>
-		 -->
+		<!-- Sonar Coverage JaCoCo XML Report Paths -->
 		<sonar.coverage.jacoco.xmlReportPaths>../app-it/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 	<dependencies>
