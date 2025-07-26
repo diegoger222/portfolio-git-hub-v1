@@ -35,6 +35,9 @@
 		<postgresql.version> 42.7.5</postgresql.version>
 		<sonar.organization>diegoger222</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+		<!-- Sonar Coverage Exclusions -->
+		<sonar.coverage.exclusions>**/config/**,**/test/**</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 
