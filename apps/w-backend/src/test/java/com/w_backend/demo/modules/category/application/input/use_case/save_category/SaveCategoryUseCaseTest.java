@@ -24,7 +24,7 @@ class SaveCategoryUseCaseTest {
     private CategoriesRepository categoriesRepository;
 
     @InjectMocks
-    private SaveCategoryUseCaseImpl saveCategoryUseCase;
+    private SaveCategoryUseCase saveCategoryUseCase;
 
     @BeforeEach
     void setup() {
