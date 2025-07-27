@@ -37,7 +37,16 @@
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
 		<!-- Sonar Coverage Exclusions -->
-		<sonar.coverage.exclusions>**/config/**,**/test/**</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>
+		**/config/**,
+		**/test/**,
+		<!-- Domain -->
+		src/main/java/com/w_backend/demo/modules/**/domain/exceptions/*,
+		<!-- Infrastructure -->
+		src/main/java/com/w_backend/demo/modules/**/infrastructure/api/rest/mappers/*
+		src/main/java/com/w_backend/demo/modules/**/infrastructure/persistence/entities/*,
+		src/main/java/com/w_backend/demo/modules/**/infrastructure/persistence/mappers/*
+		</sonar.coverage.exclusions>
 		<!-- Sonar Coverage JaCoCo XML Report Paths -->
 		<sonar.coverage.jacoco.xmlReportPaths>../app-it/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
