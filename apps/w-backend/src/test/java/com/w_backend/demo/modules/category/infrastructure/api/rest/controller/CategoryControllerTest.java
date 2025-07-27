@@ -8,7 +8,6 @@ import com.w_backend.demo.modules.category.application.input.use_case.save_categ
 import com.w_backend.demo.modules.category.domain.models.Category;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.CategoryRequest;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.request.UpdateCategoryRequest;
-import com.w_backend.demo.modules.category.infrastructure.api.rest.response.CategoryResponse;
 import com.w_backend.demo.modules.category.infrastructure.api.rest.mappers.CategoryRestApiMapper;
 import com.w_backend.demo.common.services.kafka.service.KafkaSender;
 
