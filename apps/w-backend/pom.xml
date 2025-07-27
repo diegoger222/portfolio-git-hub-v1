@@ -43,7 +43,7 @@
 		<!-- Domain -->
 		src/main/java/com/w_backend/demo/modules/**/domain/exceptions/*,
 		<!-- Infrastructure -->
-		src/main/java/com/w_backend/demo/modules/**/infrastructure/api/rest/mappers/*
+		src/main/java/com/w_backend/demo/modules/**/infrastructure/api/rest/mappers/*,
 		src/main/java/com/w_backend/demo/modules/**/infrastructure/persistence/entities/*,
 		src/main/java/com/w_backend/demo/modules/**/infrastructure/persistence/mappers/*
 		</sonar.coverage.exclusions>
