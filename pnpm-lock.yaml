@@ -88,8 +88,8 @@ importers:
         specifier: 19.2.14
         version: 19.2.14(@angular/compiler@19.2.14)(typescript@5.8.3)
       '@angular/language-service':
-        specifier: 19.2.14
-        version: 19.2.14
+        specifier: 20.2.1
+        version: 20.2.1
       '@eslint/js':
         specifier: ^9.8.0
         version: 9.22.0
@@ -101,7 +101,7 @@ importers:
         version: 10.4.15(@nestjs/common@10.4.15(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.4.15)(@nestjs/platform-express@10.4.15)
       '@nx/angular':
         specifier: 21.3.6
-        version: 21.3.6(41132be7f349c8715dbd016c75c15e50)
+        version: 21.3.6(oiu4aqsbv2miev4aylnh6j7pfe)
       '@nx/devkit':
         specifier: 21.3.6
         version: 21.3.6(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))
@@ -441,9 +441,9 @@ packages:
       '@angular/platform-browser': 19.2.14
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/language-service@19.2.14':
-    resolution: {integrity: sha512-XgzZdBCe/obCrck5I6GIG4qSI9UGaOtbrvNuw0QAK0DySKaW5inRm6/QwCMPRmPkJBY0wLeYUVz//rtHpEjeTQ==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0}
+  '@angular/language-service@20.2.1':
+    resolution: {integrity: sha512-sXTm56QSPBXiSRYSPk1uHKmdDp94rNcUd6fqjgnbP2qz8IX0CrdQS/06JiXg1wB9Cg2YaiuuO/JyYjRazJDKQg==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
   '@angular/platform-browser-dynamic@19.2.14':
     resolution: {integrity: sha512-Hfz0z1KDQmIdnFXVFCwCPykuIsHPkr1uW2aY396eARwZ6PK8i0Aadcm1ZOnpd3MR1bMyDrJo30VRS5kx89QWvA==}
@@ -4008,8 +4008,8 @@ packages:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
 
-  chromedriver@138.0.4:
-    resolution: {integrity: sha512-bz67FCiCTCdzUil2DdNVUhLdrOJ7Xws5z0dlSXKTPiLPpVJVWsQR0NXnsZcMX3FPRpmr1qP18hLp+hyeVUJgjw==}
+  chromedriver@139.0.2:
+    resolution: {integrity: sha512-GEq1PM9unQBQ79iNxlsJPvMFzcw/LKIusxC39RVD+8noh1JqURNTqbhPGU887VpGUsCFJ0SCSpr+6waK/yWHRA==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -7685,6 +7685,10 @@ packages:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
     engines: {node: '>= 8'}
 
+  source-map@0.7.6:
+    resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
+    engines: {node: '>= 12'}
+
   sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
@@ -8985,7 +8989,7 @@ snapshots:
       rxjs: 7.8.1
       tslib: 2.8.1
 
-  '@angular/language-service@19.2.14': {}
+  '@angular/language-service@20.2.1': {}
 
   '@angular/platform-browser-dynamic@19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/compiler@19.2.14)(@angular/core@19.2.14(rxjs@7.8.1)(zone.js@0.15.0))(@angular/platform-browser@19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.2.14(rxjs@7.8.1)(zone.js@0.15.0)))':
     dependencies:
@@ -11679,21 +11683,6 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/js@19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.4.5)':
-    dependencies:
-      '@nx/js': 19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-
   '@nrwl/js@19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.8.3)':
     dependencies:
       '@nx/js': 19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.8.3)
@@ -11754,7 +11743,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@nx/angular@21.3.6(41132be7f349c8715dbd016c75c15e50)':
+  '@nx/angular@21.3.6(oiu4aqsbv2miev4aylnh6j7pfe)':
     dependencies:
       '@angular-devkit/core': 19.2.14
       '@angular-devkit/schematics': 19.2.14
@@ -12008,7 +11997,7 @@ snapshots:
       '@babel/preset-env': 7.28.0(@babel/core@7.28.0)
       '@babel/preset-typescript': 7.27.1(@babel/core@7.28.0)
       '@babel/runtime': 7.27.6
-      '@nrwl/js': 19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.4.5)
+      '@nrwl/js': 19.8.4(@babel/traverse@7.28.0)(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))(typescript@5.8.3)
       '@nx/devkit': 19.8.4(nx@21.3.6(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15)))
       '@nx/workspace': 19.8.4(@swc-node/register@1.9.2(@swc/core@1.11.18(@swc/helpers@0.5.15))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.11.18(@swc/helpers@0.5.15))
       babel-plugin-const-enum: 1.2.0(@babel/core@7.28.0)
@@ -14100,7 +14089,7 @@ snapshots:
 
   chrome-trace-event@1.0.4: {}
 
-  chromedriver@138.0.4:
+  chromedriver@139.0.2:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.10.0
@@ -16567,7 +16556,7 @@ snapshots:
     dependencies:
       jwk-to-pem: 2.0.7
     optionalDependencies:
-      chromedriver: 138.0.4
+      chromedriver: 139.0.2
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -18539,6 +18528,9 @@ snapshots:
 
   source-map@0.7.4: {}
 
+  source-map@0.7.6:
+    optional: true
+
   sourcemap-codec@1.4.8: {}
 
   spdx-correct@3.2.0:
@@ -18686,7 +18678,7 @@ snapshots:
       debug: 4.4.1
       glob: 10.4.5
       sax: 1.4.1
-      source-map: 0.7.4
+      source-map: 0.7.6
     transitivePeerDependencies:
       - supports-color
     optional: true
