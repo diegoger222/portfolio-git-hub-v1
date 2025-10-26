@@ -19,5 +19,4 @@ public class GetAllCategoriesUseCaseImpl implements GetAllCategoriesUseCase {
     public List<Category> getAllCategories() {
         return categoriesRepository.findAll();
     }
-
 }
