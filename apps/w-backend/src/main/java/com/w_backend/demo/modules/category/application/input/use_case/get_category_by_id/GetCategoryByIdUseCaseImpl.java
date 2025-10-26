@@ -19,5 +19,4 @@ public class GetCategoryByIdUseCaseImpl implements GetCategoryByIdUseCase {
     public Category getCategoryById(UUID categoryId) {
         return categoriesRepository.findById(categoryId);
     }
-
 }
