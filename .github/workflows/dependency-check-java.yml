@@ -57,7 +57,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
 
       - name: Upload SARIF results (debug)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: codeql-sarif
           path: '**/*.sarif' # /home/runner/work/_temp/codeql_databases/java/results/*.sarif
