@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.3
+    container_name: keycloak
+    ports:
+      - '7080:8080'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+      KEYCLOAK_DATABASE_HOST: dev-keycloak-db
+      KEYCLOAK_DATABASE_PORT: 5432
+      KEYCLOAK_DATABASE_NAME: keycloak-db
+      KEYCLOAK_DATABASE_USER: keycloak_user
+      KEYCLOAK_DATABASE_PASSWORD: password
+    # This command can be replace with a script to import realms or other initial configurations
+    command: start-dev
+    depends_on:
+      - dev-keycloak-db
+    networks:
+      - dev-api-dev-net
+      - dev-keycloak-net
+
+  dev-keycloak-db:
+    image: postgres:16 # bitnami/postgresql:15 bitnami is not longer opened
+    container_name: dev-keycloak-db
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: keycloak_user
+      POSTGRES_DB: keycloak-db
+    volumes:
+      - dev-keycloak-db-volume:/bitnami/postgresql
+    networks:
+      - dev-api-dev-net
+      - dev-keycloak-net
+
+volumes:
+  dev-keycloak-db-volume:
+networks:
+  dev-api-dev-net:
+  dev-keycloak-net:
